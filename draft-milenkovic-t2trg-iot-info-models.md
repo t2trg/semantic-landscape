@@ -1,23 +1,24 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-ietf-xml2rfc-template-06
+docname: draft-milenkovic-t2trg-iot-info-models-latest
 cat: info
-obsoletes: ''
-updates: ''
-submissiontype: IETF
+area: T2TRG
+submissiontype: IRTF
+wg: T2T Research Group
+kw: Internet Draft
+date: 2021
+
 lang: en
 pi:
   toc: 'true'
   tocdepth: '4'
   symrefs: 'true'
   sortrefs: 'true'
+
 title: IoT Information-Model Standards Description
 abbrev: IoT Standards Description
-area: T2TRG
-wg: T2T Research Group
-kw: Internet Draft
-date: 2021
+
 author:
 - role: editor
   ins: M. Milenkovic
@@ -30,6 +31,7 @@ author:
   country: USA
   phone: "+1 650 431 8280"
   email: milan@iotsense.com
+
 informative:
   RFC3444:
   RFC7959:
@@ -41,14 +43,14 @@ informative:
     date: 2016
     seriesinfo:
       ITU-T: Y.4000/Y.2600
-  r-book:
+  r-book: # DOI.10.1007/978-3-030-41346-0
     title: 'Internet of Things: Concepts and System Design'
     author:
     - ins: M. Milenkovic
       org: ''
     date: 2020
     seriesinfo:
-      Springer Nature Publishing: ''
+      Springer: Nature Publishing
   RFC3552:
   RFC5226:
 
@@ -65,13 +67,13 @@ a summary of what is covered in the paper.
 
 # Whom is This Document For?
 
-This document is intended to encourage Standard Definition Organiztions (SDOs)
+This document is intended to encourage Standard Definition Organizations (SDOs)
 involved in definition
 of IoT data and information models to provide clarifications in their documents
 that would aid better
 understanding of their purpose, objectives, and approaches to the problem.
 We believe that this would be useful to the technical community of readers
-and potential implementors
+and potential implementers
 who are not directly involved in SDO work and thus do not share the common
 frame of reference
 and understanding of terminology that the group members tend to evolve and
@@ -82,7 +84,7 @@ concepts and assumptions as well as peculiar use of terminology can result
 in specifications
 that appear obtuse and difficult to read and understand to the "uninitiated".
 
-We are advocating for clear articulation of the intent and implicit or ecxplicit
+We are advocating for clear articulation of the intent and implicit or explicit
 assumptions
 in specifications using the common terminology. Such clarifications would
 aid readers and
@@ -122,7 +124,7 @@ language bindings.
 # Introduction and Problem Statement
 
 Internet of Things (IoT) systems deploy smart connected things that sense
-thier environment and generate
+their environment and generate
 quantitative data about the physical world. IoT systems essentially interface
 the Internet to the physical
 world.
@@ -134,7 +136,7 @@ forms of hardware (such as sensors),
 these devices can communicate and interact with others over the Internet,
 and they can be remotely monitored and
 controlled. The IoT adds the ability for IoT devices to interoperate with
-the existing Internet infrastructrure." {{ITU}} 
+the existing Internet infrastructure." {{ITU}} 
 
 In IoT systems, communication is primarily between machines that
 generate and consume the data. They exchange message conveying data measurements
@@ -211,7 +213,7 @@ process the data accordingly.
 
 Following the Internet principles and practice, clients and servers exchange
 payloads and rely on an information-model
-specification for proper encoding and in-terpretation of the exchanged messages.
+specification for proper encoding and interpretation of the exchanged messages.
 The two endpoints are otherwise decoupled,
 they may be developed independently of each other and operate on different
 platforms and runtime environments.
@@ -302,7 +304,7 @@ This field is labeled as Object Type in Table 1 and is often modeled in object-o
 systems as a class. Object and class types
 directly correspond to the specific real-world things that are modeled by
 the specification. They can include a variety of sensors
-and devices, such as temperature, humidity, thermostat, refridgerator, security
+and devices, such as temperature, humidity, thermostat, refrigerator, security
 camera, current drawn,
 metered units (kWh, gals or liters) and many others. It is customary to use
 a single object-class definition representing
@@ -341,7 +343,7 @@ in the vocabulary. They also specify the data types for the values associated
 with the particular name fields – such as numbers,
 integers, or strings. Values or attributes in thing abstraction representations
 can be read-only, such as temperature reading,
-or writeable for actuation, or both. They can also include metadata, such
+or writable for actuation, or both. They can also include metadata, such
 as what the sensor is
 measuring, e. g. air or water temperature, minimum and maximum possible values
 of reading, and the like.
@@ -361,7 +363,7 @@ They may also include ways to request machine-readable descriptions of the
 thing, its object type and characteristics,
 or to activate the built-in methods that operate on the object’s internal
 structures and outputs, including actuations.
-Many specifications also define events, which are generally asyncronous signals
+Many specifications also define events, which are generally asynchronous signals
 emitted by the device to indicate
 some change of state under observation.
 
@@ -427,13 +429,13 @@ with types of requests and responses, supported interfaces, methods, and
 access points for
 those.
 
-Payload serialization referes to the common agreement on the format in which
+Payload serialization refers to the common agreement on the format in which
 messages appear
 "on the wire", i.e. are formatted by the sending node and parsed by the receiving
 one. Variants of JSON
 are commonly used for this purpose, although more compact forms of serializations,
 such as the binary
-CBOR {{RFC8949}} may be favored for contrained nodes and networks.
+CBOR {{RFC8949}} may be favored for constrained nodes and networks.
 
 Protocol bindings specify which protocols are supported and perhaps the port
 numbers on which they operate.
@@ -481,7 +483,7 @@ in its specification.
 
 # Characteristics List... tbr
 
-A partial list of recommended charatectristics that documents and specifications
+A partial list of recommended characteristics that documents and specifications
 of IoT data and
 information models should explicitly state (or articulate?).
 
@@ -503,16 +505,16 @@ or information models for IoT endpoints (things) in general or in particular
 domain. Or it may be to provide
 a meta-model specifications providing thing abstractions that the specific
 information and data models
-can be maped to and from. Or it may be a framework, in which case it should
+can be mapped to and from. Or it may be a framework, in which case it should
 be specified which additional system
-aspects it defines, such as security, naming, discovery, communicatioon protocols,
+aspects it defines, such as security, naming, discovery, communication protocols,
 and serialization methods.
 
 
 ## Domain
 
 What is the target usage domain for the specification? A specification may
-tartget or be optimized for a particular
+Target or be optimized for a particular
 domain, such as smart home, industrial, manufacturing, transportation, or
 agriculture. Choice of the domain is
 reflected in the specific types of objects and things for which the information
@@ -587,7 +589,7 @@ ambient conditions are regulated by a named air-handling unit.
 This kind of information may be consumed by an application to programmatically
 determine
 which HVAC components to actuate in order to reduce or increase ambient
-temperature as dictated by the the associated thermostat schedule or a user
+temperature as dictated by the associated thermostat schedule or a user
 request.
 Without the metadata, knowledge of structural relations among nodes would
 have to
@@ -602,12 +604,12 @@ position on handling additional metadata beyond its basic specification.
 
 ### Creation of New Object Types
 
-Data and information models provide defintions for a
+Data and information models provide definitions for a
 number of object types representing things in their target domain. Their
 number
 and variety is limited to what the defining organization sees as important,
 has
-the bandwith to specify, and can reach a consensus on. The number and type
+the bandwidth to specify, and can reach a consensus on. The number and type
 of
 covered devices tends to change and grow over time, as reflected in evolving
 revisions of the specification.
@@ -618,7 +620,7 @@ that are not defined in it. Such users need to define a
 device model, preferably with a prospect of remaining compliant
 with the specification as it evolves.
 
-Various SDOs have different approaches to defintion of new models. Some simply
+Various SDOs have different approaches to definition of new models. Some simply
 wait until agreeing on things types to be defined in future iterations. Others
 encourage crowd-sourcing of new models, where expert groups or individual
 companies propose new models, often after implementing and proving them in
@@ -646,7 +648,7 @@ implementation developers would be well served by summarizing the totality
 of what a compliant node is required
 and assumed to be able to do. Additional clarification may be provided by
 what is possible to happen at
-the two distinct parts of the node lifecycle - desgin time and runtime when
+the two distinct parts of the node lifecycle - design time and runtime when
 the node is in operation.
 
 At the design time, the code is written to implement the applicable node
@@ -696,7 +698,7 @@ implementations.
 
 Provide functional description of any additional tools or reference implementations
 that
-may be available to developers. Describe language dependencies or pereferences,
+may be available to developers. Describe language dependencies or preferences,
 if any,
 that may result from the specific bindings or reference implementations.
 
@@ -754,4 +756,3 @@ the suggested guidelines
 
 
 Add acks, contributors etc
-
