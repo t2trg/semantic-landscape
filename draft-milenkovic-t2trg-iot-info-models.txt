@@ -4,8 +4,8 @@
 
 T2T Research Group                                    M. Milenkovic, Ed.
 Internet-Draft                                              IoTsense LLC
-Intended status: Informational                             26 April 2021
-Expires: 28 October 2021
+Intended status: Informational                              17 June 2021
+Expires: 19 December 2021
 
 
               IoT Information-Model Standards Description
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 October 2021.
+   This Internet-Draft will expire on 19 December 2021.
 
 Copyright Notice
 
