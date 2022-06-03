@@ -1,6 +1,6 @@
-# IoT Information-Model Standards Description
+# IoT Information-Model Standards Description ("Nutrition Label")
 
-This is the working area for the individual Internet-Draft, "IoT Information-Model Standards Description".
+This is the working area for the individual Internet-Draft, "IoT Information-Model Standards Description ("Nutrition Label")".
 
 * [Editor's Copy](https://t2trg.github.io/semantic-landscape/#go.draft-milenkovic-t2trg-iot-info-models.html)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-milenkovic-t2trg-iot-info-models)
