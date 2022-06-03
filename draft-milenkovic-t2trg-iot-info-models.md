@@ -804,7 +804,7 @@ for licensing research vs. commercial implementations should be pointed out.
 
 This memo includes no request to IANA.
 
-All drafts are required to have an IANA considerations section (see [RFC5226] for a guide). If the draft
+All drafts are required to have an IANA considerations section (see {{RFC8126}} for a guide). If the draft
 does not require IANA to do anything, the section contains an explicit statement
 that this is the
 case (as above). If there are no requirements for IANA, the section will
