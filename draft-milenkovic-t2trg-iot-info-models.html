@@ -4,40 +4,236 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>IoT Information-Model Standards Description</title>
+<title>IoT Information-Model Standards Description ("Nutrition Label")</title>
 <meta content="Milan Milenkovic" name="author">
 <meta content="
-       [NB: need to do abstract later] 
-       Write later using an abbreviated version of the next section, whom is the
-document for, followed by
-a summary of what is covered in the paper. 
+       Implementation of IoT systems imposes a requirement of M2M semantic interoperability.
+This problem is addressed by a number of ongoing attempts
+to define and standardize IoT information and data models. At present this
+work is fragmented
+across several standards with different approaches, scope, objectives, terminology,
+and assumptions
+that makes them difficult to understand and compare. This document is part
+of the effort to
+alleviate that problem by means of more streamlined presentations and descriptions. 
+       We are advocating for clear articulation of the intent and implicit or explicit
+assumptions
+in SDO specifications using the common terminology. Such clarifications would
+aid IoT practitioners and
+potential adopters to make meaningful comparisons and facilitate selection
+of IoT specifications
+that are the best fit for their intended purpose. To that end, we propose
+that creators
+of IoT standards address a list of questions that would characterize their
+work in comparable ways, somewhat akin to the intent of nutrition labels
+for food. 
+       This paper describes the basic design principles and practices of IoT information
+and data
+model definitions, and proposes an initial list of questions that SDOs may
+address to facilitate
+understanding and comparisons. Our intent is to evolve and refine this list
+over time by actively
+soliciting and incorporating feedback and suggestions of IoT community. 
     " name="description">
-<meta content="xml2rfc 3.8.0" name="generator">
+<meta content="xml2rfc 3.12.10" name="generator">
 <meta content="Internet Draft" name="keyword">
 <meta content="draft-milenkovic-t2trg-iot-info-models-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.8.0
-    Python 3.8.10
+  xml2rfc 3.12.10
+    Python 3.10.4
     appdirs 1.4.4
-    ConfigArgParse 1.2.3
-    google-i18n-address 2.4.0
+    ConfigArgParse 1.5.3
+    google-i18n-address 2.5.1
     html5lib 1.1
     intervaltree 3.1.0
-    Jinja2 2.11.2
+    Jinja2 2.11.3
     kitchen 1.2.6
-    lxml 4.6.3
+    lxml 4.8.0
+    MarkupSafe 2.0.1
     pycountry 20.7.3
-    pyflakes 2.2.0
-    PyYAML 5.3.1
-    requests 2.25.1
-    setuptools 51.3.3
-    six 1.15.0
+    pyflakes 2.4.0
+    PyYAML 6.0
+    requests 2.27.1
+    setuptools 59.4.0
+    six 1.16.0
 -->
 <link href="draft-milenkovic-t2trg-iot-info-models.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
-<style type="text/css">@import url('https://martinthomson.github.io/i-d-template/fonts.css');
+<style type="text/css">@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
 
-html {
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Lora SemiBold'), local('Lora-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-semibold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light dark;
   --background-color: #fff;
   --text-color: #222;
   --title-color: #191919;
@@ -47,20 +243,8 @@ html {
   --pilcrow-weak: #ddd;
   --pilcrow-strong: #bbb;
   --small-font-size: 14.5px;
+  --font-mono: 'Oxygen Mono', monospace;
   scrollbar-color: #bbb #eee;
-}
-@media (prefers-color-scheme: dark) {
-html {
-  --background-color: #121212;
-  --text-color: #f0f0f0;
-  --title-color: #fff;
-  --link-color: #4da4f0;
-  --highlight-color: #282828;
-  --line-color: #444;
-  --pilcrow-weak: #444;
-  --pilcrow-strong: #666;
-  scrollbar-color: #777 #333;
-}
 }
 body {
   max-width: 600px;
@@ -77,19 +261,25 @@ body {
 }
 
 /* headings */
-#title, h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: "Cabin Condensed", sans-serif;
   font-weight: 600;
   margin: 0.8em 0 0.3em;
   font-size-adjust: 0.5;
   color: var(--title-color);
 }
-#title {
-  padding: 1em 0 0.2em;
+h1#title {
   font-size: 32px;
   line-height: 40px;
   clear: both;
 }
+h1#title, h1#rfcnum {
+  margin: 1.5em 0 0.2em;
+}
+h1#rfcnum + h1#title {
+  margin: 0.2em 0;
+}
+
 h1, h2, h3 {
   font-size: 22px;
   line-height: 27px;
@@ -103,10 +293,15 @@ h4, h5, h6 {
 .author {
   padding-bottom: 0.3em;
 }
-#abstract+p, #abstract+p code, #abstract+p samp, #abstract+p tt {
+#abstract+p {
   font-size: 18px;
   line-height: 24px;
 }
+#abstract+p code, #abstract+p samp, #abstract+p tt {
+  font-size: 16px;
+  line-height: 0;
+}
+
 p {
   padding: 0;
   margin: 0.5em 0;
@@ -143,6 +338,10 @@ div {
 svg {
   display: block;
 }
+/* font-family isn't space-separated, but =~ will have to do */
+svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
+  font-family: var(--font-mono);
+}
 .alignCenter.art-text {
   background-color: var(--highlight-color);
   border: 1px solid var(--line-color);
@@ -171,7 +370,7 @@ ol, ul {
   padding: 0;
   margin: 0 0 0.5em 2em;
 }
-ol ol, ul ul, ol ul, ul ol {
+:is(ol, ul) :is(ol, ul) {
   margin-left: 1em;
 }
 li {
@@ -186,8 +385,7 @@ ul.empty, .ulEmpty {
 ul.empty li, .ulEmpty li {
   margin-top: 0.5em;
 }
-ul.compact, .ulCompact,
-ol.compact, .olCompact {
+:is(ul, ol).compact, .ulCompact, .olCompact {
   line-height: 100%;
   margin: 0 0 0 2em;
 }
@@ -203,7 +401,7 @@ dl > dd {
   margin-bottom: .8em;
   min-height: 1.3em;
 }
-dl.compact > dd, .dlCompact > dd {
+:is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0em;
 }
 dl > dd > dl {
@@ -237,7 +435,16 @@ a.xref {
 /* Figures */
 tt, code, pre {
   background-color: var(--highlight-color);
-  font: 14px/22px 'Oxygen Mono', monospace;
+  font: 14px/22px var(--font-mono);
+}
+tt, code {
+  /* changing the font for inline elements leads to different ascender
+     and descender heights; as we want to retain baseline alignment,
+     remove leading to avoid altering the final height of lines */
+  line-height: 0;
+}
+:is(h1, h2, h3, h4, h5, h6) :is(tt, code) {
+  font-size: 84%;
 }
 pre {
   border: 1px solid var(--line-color);
@@ -263,17 +470,35 @@ figcaption, caption {
   text-align: left;
 }
 @media screen {
-  pre {
+  /* Auto-collapse boilerplate. */
+  :is(#status-of-memo, #copyright) p {
+    margin: -2px 0;
+    max-height: 0;
+    transition: max-height 2s ease, margin 0.5s ease 0.5s;
+    overflow: hidden;
+  }
+  :is(#status-of-memo, #copyright):hover p,
+  :is(#status-of-memo, #copyright) h2:target ~ p {
+    margin: 0.5em 0;
+    max-height: 500px;
+    overflow: auto;
+  }
+  pre, svg {
     display: inline-block;
     overflow-x: auto;
+  }
+  pre {
     max-width: 100%;
     width: calc(100% - 22px - 1em);
+  }
+  svg {
+    max-width: calc(100% - 22px - 1em);
   }
   figure pre {
     display: block;
     width: calc(100% - 25px);
   }
-  pre + .pilcrow {
+  :is(pre, svg) + .pilcrow {
     display: inline-block;
     vertical-align: text-bottom;
     padding-bottom: 8px;
@@ -287,9 +512,6 @@ aside, blockquote {
   font-style: italic;
 }
 blockquote {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
   margin: 1em 0;
 }
 cite {
@@ -325,17 +547,11 @@ th, td {
 th {
   background-color: var(--line-color);
 }
-tr:nth-child(2n) > td {
+:is(tr:nth-child(2n), thead+tbody > tr:nth-child(2n+1)) > td {
   background-color: var(--background-color);
 }
-tr:nth-child(2n+1) > td {
+:is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
   background-color: var(--highlight-color);
-}
-thead+tbody > tr:nth-child(2n) > td {
-  background-color: var(--highlight-color);
-}
-thead+tbody > tr:nth-child(2n+1) > td {
-  background-color: var(--background-color);
 }
 table caption {
   margin: 0;
@@ -375,8 +591,9 @@ hr {
 }
 .bcp14 {
   font-variant: small-caps;
+  font-weight: 600;
+  font-size: 14.5px;
 }
-
 .role {
   font-variant: all-small-caps;
 }
@@ -460,36 +677,8 @@ hr {
 }
 
 /* index */
-.index ul {
-  margin: 0 0 0 1em;
-  padding: 0;
-  list-style: none;
-}
-.index ul ul {
-  margin: 0;
-}
-.index li {
-  margin: 0;
-  text-indent: -2em;
-  padding-left: 2em;
-  padding-bottom: 5px;
-}
-.indexIndex {
-  margin: 0.5em 0 1em;
-}
-.index a {
-  font-weight: 700;
-}
-/* make the index two-column on all but the smallest screens */
-@media (min-width: 500px) {
-  .index ul {
-    column-count: 2;
-    column-gap: 20px;
-  }
-  .index ul ul {
-    column-count: 1;
-    column-gap: 0;
-  }
+#rfc\.index\.index + ul {
+  margin-left: 0;
 }
 
 /* authors */
@@ -643,7 +832,7 @@ hr.addr {
     margin: 0 0 0 4px;
     font-size: var(--small-font-size);
   }
-  #toc ul p, #toc ul li {
+  #toc ul :is(p, li) {
     margin: 2px 0;
     line-height: 22px;
   }
@@ -753,13 +942,13 @@ dl.dlNewline > dt {
 }
 
 /* Provide styling for table cell text alignment */
-table .text-left, table .text-left {
+table .text-left {
   text-align: left;
 }
-table .text-center, table .text-center {
+table .text-center {
   text-align: center;
 }
-table .text-right, table .text-right {
+table .text-right {
   text-align: right;
 }
 
@@ -826,11 +1015,34 @@ address div.right {
   }
 
 }
-/* Tweak the bcp14 keyword presentation */
-.bcp14 {
-  font-variant: small-caps;
-  font-weight: bold;
-  font-size: 0.9em;
+
+/* Dark mode. */
+@media (prefers-color-scheme: dark) {
+:root {
+  --background-color: #121212;
+  --text-color: #f0f0f0;
+  --title-color: #fff;
+  --link-color: #4da4f0;
+  --highlight-color: #282828;
+  --line-color: #444;
+  --pilcrow-weak: #444;
+  --pilcrow-strong: #666;
+  scrollbar-color: #777 #333;
+}
+}
+
+/* SVG Trick: a prefix match works because only black and white are allowed */
+svg :is([stroke="black"], [stroke^="#000"]) {
+  stroke: var(--text-color);
+}
+svg :is([stroke="white"], [stroke^="#fff"]) {
+  stroke: var(--background-color);
+}
+svg :is([fill="black"], [fill^="#000"], :not([fill])) {
+  fill: var(--text-color);
+}
+svg :is([stroke="fill"], [fill^="#fff"]) {
+  fill: var(--background-color);
 }
 </style>
 
@@ -840,11 +1052,11 @@ address div.right {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">IoT Standards Description</td>
-<td class="right">June 2021</td>
+<td class="right">June 2022</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Milenkovic</td>
-<td class="center">Expires 19 December 2021</td>
+<td class="center">Expires 5 December 2022</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -857,12 +1069,12 @@ address div.right {
 <dd class="internet-draft">draft-milenkovic-t2trg-iot-info-models-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2021-06-17" class="published">17 June 2021</time>
+<time datetime="2022-06-03" class="published">3 June 2022</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2021-12-19">19 December 2021</time></dd>
+<dd class="expires"><time datetime="2022-12-05">5 December 2022</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -873,13 +1085,36 @@ address div.right {
 </dd>
 </dl>
 </div>
-<h1 id="title">IoT Information-Model Standards Description</h1>
+<h1 id="title">IoT Information-Model Standards Description ("Nutrition Label")</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">[NB: need to do abstract later]<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">Write later using an abbreviated version of the next section, whom is the
-document for, followed by
-a summary of what is covered in the paper.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">Implementation of IoT systems imposes a requirement of M2M semantic interoperability.
+This problem is addressed by a number of ongoing attempts
+to define and standardize IoT information and data models. At present this
+work is fragmented
+across several standards with different approaches, scope, objectives, terminology,
+and assumptions
+that makes them difficult to understand and compare. This document is part
+of the effort to
+alleviate that problem by means of more streamlined presentations and descriptions.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">We are advocating for clear articulation of the intent and implicit or explicit
+assumptions
+in SDO specifications using the common terminology. Such clarifications would
+aid IoT practitioners and
+potential adopters to make meaningful comparisons and facilitate selection
+of IoT specifications
+that are the best fit for their intended purpose. To that end, we propose
+that creators
+of IoT standards address a list of questions that would characterize their
+work in comparable ways, somewhat akin to the intent of nutrition labels
+for food.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-3">This paper describes the basic design principles and practices of IoT information
+and data
+model definitions, and proposes an initial list of questions that SDOs may
+address to facilitate
+understanding and comparisons. Our intent is to evolve and refine this list
+over time by actively
+soliciting and incorporating feedback and suggestions of IoT community.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-discussion-venues">
@@ -911,7 +1146,7 @@ a summary of what is covered in the paper.<a href="#section-abstract-2" class="p
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 December 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 December 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -920,7 +1155,7 @@ a summary of what is covered in the paper.<a href="#section-abstract-2" class="p
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2021 IETF Trust and the persons identified as the
+            Copyright (c) 2022 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -936,92 +1171,98 @@ a summary of what is covered in the paper.<a href="#section-abstract-2" class="p
         <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
 <a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
         </h2>
-<nav class="toc"><ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.1">
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="xref">1</a>.  <a href="#name-whom-is-this-document-for" class="xref">Whom is This Document For?</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.2">
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="xref">2</a>.  <a href="#name-introduction-and-problem-st" class="xref">Introduction and Problem Statement</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.3">
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-iot-information-model" class="xref">IoT Information Model</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.3.2.1">
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
                 <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-structure-of-an-iot-informa" class="xref">Structure of an IoT Information Model</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.3.2.1.2.1">
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.1">
                     <p id="section-toc.1-1.3.2.1.2.1.1" class="keepWithNext"><a href="#section-3.1.1" class="xref">3.1.1</a>.  <a href="#name-object-type" class="xref">Object Type</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.1.2.2">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.2">
                     <p id="section-toc.1-1.3.2.1.2.2.1"><a href="#section-3.1.2" class="xref">3.1.2</a>.  <a href="#name-properties-attributes" class="xref">Properties, Attributes</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.1.2.3">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.3">
                     <p id="section-toc.1-1.3.2.1.2.3.1"><a href="#section-3.1.3" class="xref">3.1.3</a>.  <a href="#name-interactions" class="xref">Interactions</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.1.2.4">
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.4">
                     <p id="section-toc.1-1.3.2.1.2.4.1"><a href="#section-3.1.4" class="xref">3.1.4</a>.  <a href="#name-links" class="xref">Links</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-iot-frameworks" class="xref">IoT Frameworks</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-functional-interoperability" class="xref">Functional Interoperability</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="xref">3.3</a>.  <a href="#name-iot-frameworks" class="xref">IoT Frameworks</a></p>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-characteristics-list-tbr" class="xref">Characteristics List... tbr</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.4.2.1">
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-characteristics-list" class="xref">Characteristics List</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
                 <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="xref">4.1</a>.  <a href="#name-objective" class="xref">Objective</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.2">
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="xref">4.2</a>.  <a href="#name-domain" class="xref">Domain</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.3">
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
                 <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-environmental-assumptions" class="xref">Environmental Assumptions</a></p>
 </li>
-              <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.4">
-                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="xref">4.4</a>.  <a href="#name-would-be-nice-to-know" class="xref">Would be Nice to Know</a></p>
-<ul class="ulEmpty toc compact">
-<li class="ulEmpty toc compact" id="section-toc.1-1.4.2.4.2.1">
-                    <p id="section-toc.1-1.4.2.4.2.1.1"><a href="#section-4.4.1" class="xref">4.4.1</a>.  <a href="#name-metadata-handling" class="xref">Metadata Handling</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
+                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="xref">4.4</a>.  <a href="#name-terminology" class="xref">Terminology</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.4.2.2">
-                    <p id="section-toc.1-1.4.2.4.2.2.1"><a href="#section-4.4.2" class="xref">4.4.2</a>.  <a href="#name-creation-of-new-object-type" class="xref">Creation of New Object Types</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.5">
+                <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="xref">4.5</a>.  <a href="#name-would-be-nice-to-know" class="xref">Would be Nice to Know</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.5.2.1">
+                    <p id="section-toc.1-1.4.2.5.2.1.1"><a href="#section-4.5.1" class="xref">4.5.1</a>.  <a href="#name-metadata-handling" class="xref">Metadata Handling</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.4.2.3">
-                    <p id="section-toc.1-1.4.2.4.2.3.1"><a href="#section-4.4.3" class="xref">4.4.3</a>.  <a href="#name-development-considerations-" class="xref">Development Considerations and Assumptions</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.5.2.2">
+                    <p id="section-toc.1-1.4.2.5.2.2.1"><a href="#section-4.5.2" class="xref">4.5.2</a>.  <a href="#name-creation-of-new-object-type" class="xref">Creation of New Object Types</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.4.2.4">
-                    <p id="section-toc.1-1.4.2.4.2.4.1"><a href="#section-4.4.4" class="xref">4.4.4</a>.  <a href="#name-tools-reference-implementat" class="xref">Tools, Reference Implementations</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.5.2.3">
+                    <p id="section-toc.1-1.4.2.5.2.3.1"><a href="#section-4.5.3" class="xref">4.5.3</a>.  <a href="#name-development-considerations-" class="xref">Development Considerations and Assumptions</a></p>
 </li>
-                  <li class="ulEmpty toc compact" id="section-toc.1-1.4.2.4.2.5">
-                    <p id="section-toc.1-1.4.2.4.2.5.1"><a href="#section-4.4.5" class="xref">4.4.5</a>.  <a href="#name-licensing-terms" class="xref">Licensing Terms</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.5.2.4">
+                    <p id="section-toc.1-1.4.2.5.2.4.1"><a href="#section-4.5.4" class="xref">4.5.4</a>.  <a href="#name-tools-reference-implementat" class="xref">Tools, Reference Implementations</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.5.2.5">
+                    <p id="section-toc.1-1.4.2.5.2.5.1"><a href="#section-4.5.5" class="xref">4.5.5</a>.  <a href="#name-licensing-terms" class="xref">Licensing Terms</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-additional-stuff-appendices" class="xref">Additional Stuff: Appendices</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-appendices" class="xref">Appendices</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.8">
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-informative-references" class="xref">Informative References</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-appendix.a" class="xref">Appendix A</a>.  <a href="#name-additional-stuff" class="xref">Additional Stuff</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="xref">Appendix A</a>.  <a href="#name-additional-stuff" class="xref">Additional Stuff</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-appendix.b" class="xref"></a><a href="#name-acknowledgements" class="xref">Acknowledgements</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="xref"></a><a href="#name-acknowledgements" class="xref">Acknowledgements</a></p>
 </li>
-          <li class="ulEmpty toc compact" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#section-appendix.c" class="xref"></a><a href="#name-authors-address" class="xref">Author's Address</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#appendix-C" class="xref"></a><a href="#name-authors-address" class="xref">Author's Address</a></p>
 </li>
         </ul>
 </nav>
@@ -1032,8 +1273,8 @@ a summary of what is covered in the paper.<a href="#section-abstract-2" class="p
       <h2 id="name-whom-is-this-document-for">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-whom-is-this-document-for" class="section-name selfRef">Whom is This Document For?</a>
       </h2>
-<p id="section-1-1">This document is intended to encourage Standard Definition Organizations (SDOs)
-involved in definition
+<p id="section-1-1">This document is intended to encourage Standard Definition Organizations
+(SDOs) involved in definition
 of IoT data and information models to provide clarifications in their documents
 that would aid better
 understanding of their purpose, objectives, and approaches to the problem.
@@ -1106,11 +1347,12 @@ This machine-to-machine (M2M) mode of operation requires semantic interoperabili
 in the sense that
 receiving nodes need to be able to "understand" the meaning of data. Defining
 meaning and understanding
-can get quite philosophical. In practical terms this means that the communicating
-machines need a
+is generally a philosophical undertaking. In practical terms as applied to
+M2M, this means that the
+communicating machines need a
 common agreement on how to model and semantically annotate the behaviors
 and properties of the physical
-things in order to represent, communicate, and process the data that they
+things in order to represent, communicate, and interpret the data that they
 generate.
 In other words, all communicating parties need to use the same conceptual
 model of things that exist
@@ -1120,7 +1362,8 @@ use the same specification of an IoT information model.<a href="#section-2-3" cl
 common usage of worldwide
 web where humans interpret the meaning of the presented web pages and thus
 achieve semantic
-interoperability with data (content) creators (add ref later).<a href="#section-2-4" class="pilcrow">¶</a></p>
+interoperability with data (content) creators [NB add interop harder ref
+later].<a href="#section-2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iot-information-model">
@@ -1128,8 +1371,8 @@ interoperability with data (content) creators (add ref later).<a href="#section-
       <h2 id="name-iot-information-model">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-iot-information-model" class="section-name selfRef">IoT Information Model</a>
       </h2>
-<p id="section-3-1">NB: this is a context setting section, but not the thrust of the paper, so
-may need to be trimmed??..]<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">[NB: this is a context setting section, but not the thrust of the paper,
+so may need to be trimmed??..]<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">An IoT information model is an abstract, formal representation of IoT thing
 types that often include their properties,
 relationships, and the operations that can be performed on them. A thing
@@ -1140,9 +1383,9 @@ Some specifications provide only definition of thing types and their properties
 and they tend to be
 referred to as data models. Distinctions between information and data models
 are discussed in <span>[<a href="#RFC3444" class="xref">RFC3444</a>]</span>.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<span id="name-fig-test-title"></span><div id="rl-fig1">
+<span id="name-use-of-a-shared-information"></span><div id="rl-fig1">
 <figure id="figure-1">
-        <div class="artwork art-text alignCenter" id="section-3-3.1">
+        <div class="alignCenter art-text artwork" id="section-3-3.1">
 <pre>
                    ****************************
                **  *    Information Model     *  **
@@ -1159,12 +1402,12 @@ are discussed in <span>[<a href="#RFC3444" class="xref">RFC3444</a>]</span>.<a h
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
-<a href="#name-fig-test-title" class="selfRef">Fig test title</a>
+<a href="#name-use-of-a-shared-information" class="selfRef">Use of a Shared Information Model</a>
         </figcaption></figure>
 </div>
 <p id="section-3-4">Figure 1 illustrates two endpoints in an IoT system that intend to engage
 in data and control
-exchanges(<span>[<a href="#r-book" class="xref">r-book</a>]</span>). As indicated earlier, all communicating parties need to use
+exchanges(<span>[<a href="#iotbook" class="xref">iotbook</a>]</span>). As indicated earlier, all communicating parties need to use
 the same conceptual model of things that exist in their domain. A common
 way to accomplish this
 is by having all parties use the same specification of an IoT
@@ -1179,11 +1422,11 @@ process the data accordingly.<a href="#section-3-5" class="pilcrow">¶</a></p>
 payloads and rely on an information-model
 specification for proper encoding and interpretation of the exchanged messages.
 The two endpoints are otherwise decoupled,
-they may be developed independently of each other and operate on different
+i.e., they may be developed independently of each other and operate on different
 platforms and runtime environments.
 In this context, endpoint refers to software agents that are acquiring (producing)
 or processing
-(consuming) real-world data.<a href="#section-3-6" class="pilcrow">¶</a></p>
+(consuming) data.<a href="#section-3-6" class="pilcrow">¶</a></p>
 <p id="section-3-7">The IoT server internally implements the thing description
 as a cyber-world touch point for each particular instance using the format
 of the information model defined by
@@ -1201,20 +1444,17 @@ thing descriptions that it is authorized to and use them to issue queries
 and optionally command messages.
 The client uses the shared information-model definition to properly format
 requests and interpret responses
-that it receives. IoT clients may reside in the cloud or at some intermediate
-point in the system hierarchy,
-such as a peer thing node, gateway, or a fog node.<a href="#section-3-8" class="pilcrow">¶</a></p>
-<p id="section-3-9">[NB: need to state somewhere that IoT models naturally have similarities
-because they represent
-the same physical things, but they differ because different SDOs choose different
-ways to abstract them...]<a href="#section-3-9" class="pilcrow">¶</a></p>
-<p id="section-3-10">Since objects are modeling real-world things, there are some implied semantics
+that it receives. IoT clients may reside at the edge - such as a peer
+thing node or edge gateway, at some
+intermediate point in the system hierarchy such as a fog node, or in the
+cloud.<a href="#section-3-8" class="pilcrow">¶</a></p>
+<p id="section-3-9">Since objects are modeling real-world things, there are some implied semantics
 defined by the intrinsic
 nature of the thing that is being modeled. For example, a temperature sensor
 is commonly understood to
 measure temperature of something based on its characteristics and placement,
 such as the ambient
-air temperature or water temperature in a heating/cooling pipe.<a href="#section-3-10" class="pilcrow">¶</a></p>
+air temperature or water temperature in a heating/cooling pipe.<a href="#section-3-9" class="pilcrow">¶</a></p>
 <div id="structure-of-an-iot-information-model">
 <section id="section-3.1">
         <h3 id="name-structure-of-an-iot-informa">
@@ -1235,32 +1475,32 @@ information model representations.<a href="#section-3.1-1" class="pilcrow">¶</a
           </caption>
 <thead>
             <tr>
-              <th class="text-center" rowspan="1" colspan="1">Element</th>
-              <th class="text-center" rowspan="1" colspan="1">Description</th>
+              <th class="text-left" rowspan="1" colspan="1">Element</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="text-center" rowspan="1" colspan="1">Object Type</td>
-              <td class="text-center" rowspan="1" colspan="1">Physical thing being modeled (device)</td>
+              <td class="text-left" rowspan="1" colspan="1">Object Type</td>
+              <td class="text-left" rowspan="1" colspan="1">Physical thing being modeled (device)</td>
             </tr>
             <tr>
-              <td class="text-center" rowspan="1" colspan="1">Properties, Attributes</td>
-              <td class="text-center" rowspan="1" colspan="1">Object attributes, data, metadata</td>
+              <td class="text-left" rowspan="1" colspan="1">Properties, Attributes</td>
+              <td class="text-left" rowspan="1" colspan="1">Object attributes, data, metadata</td>
             </tr>
             <tr>
-              <td class="text-center" rowspan="1" colspan="1">Interactions</td>
-              <td class="text-center" rowspan="1" colspan="1">Ways to interact with object, actions, events</td>
+              <td class="text-left" rowspan="1" colspan="1">Interactions</td>
+              <td class="text-left" rowspan="1" colspan="1">Ways to interact with object, actions, events</td>
             </tr>
             <tr>
-              <td class="text-center" rowspan="1" colspan="1">Links</td>
-              <td class="text-center" rowspan="1" colspan="1">To other objects, compositions and collections</td>
+              <td class="text-left" rowspan="1" colspan="1">Links</td>
+              <td class="text-left" rowspan="1" colspan="1">To other objects, compositions and collections</td>
             </tr>
           </tbody>
         </table>
 </div>
-<p id="section-3.1-3">IoT data models may specify only object types and properties of modeled things,
-and leave out
+<p id="section-3.1-3">Some IoT data models specify only object types and properties of modeled
+things and leave out
 definition of interactions and links.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
 <div id="object-type">
 <section id="section-3.1.1">
@@ -1297,7 +1537,7 @@ By using the type names exactly as defined
 in the vocabulary, communicating parties can establish an accurate correlation
 of references at both sending and receiving
 ends. This is a simple and effective way of establishing semantic interoperability
-at the model level.<a href="#section-3.1.1-3" class="pilcrow">¶</a></p>
+at object type and naming level.<a href="#section-3.1.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="properties-attributes">
@@ -1305,8 +1545,9 @@ at the model level.<a href="#section-3.1.1-3" class="pilcrow">¶</a></p>
           <h4 id="name-properties-attributes">
 <a href="#section-3.1.2" class="section-number selfRef">3.1.2. </a><a href="#name-properties-attributes" class="section-name selfRef">Properties, Attributes</a>
           </h4>
-<p id="section-3.1.2-1">Attributes generally say something about the object and its state, such as
-for a temperature sensor its current reading in the
+<p id="section-3.1.2-1">Attributes generally say something about the object and its state. This field
+is commonly used to represent sensor readings,
+such as for a temperature sensor its current reading in the
 applicable units of measure, e.g. degrees C or F. Standards usually specify
 the exact format of the name fields and their meaning
 in the vocabulary. They also specify the data types for the values associated
@@ -1336,8 +1577,8 @@ They may also include ways to request machine-readable descriptions of the
 thing, its object type and characteristics,
 or to activate the built-in methods that operate on the object's internal
 structures and outputs, including actuations.
-Many specifications also define events, which are generally asynchronous signals
-emitted by the device to indicate
+Many specifications also define events, which are generally asynchronous
+signals emitted by the device to indicate
 some change of state under observation.<a href="#section-3.1.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1347,15 +1588,15 @@ some change of state under observation.<a href="#section-3.1.3-1" class="pilcrow
 <a href="#section-3.1.4" class="section-number selfRef">3.1.4. </a><a href="#name-links" class="section-name selfRef">Links</a>
           </h4>
 <p id="section-3.1.4-1">Some sort of linking mechanism or representation is often included in IoT
-information models, primarily as a mechanism to
-point to items of interest or to form groupings of related objects. Groupings
-of interest may be formed to facilitate
+information models, used primarily as a mechanism to
+point to other items of interest or to form groupings of related objects.
+Groupings of interest may be formed to facilitate
 coordinated behaviors of multiple devices, such as home-automation things.
 They may also be used to reflect structural
 properties of the physical connections between devices as installed and configured
 in the field that may be of
-interest to applications, such as indicating which HVAC zone a temperature
-sensor and an air-handling unit belong to.<a href="#section-3.1.4-1" class="pilcrow">¶</a></p>
+interest to applications, such as indicating which room and HVAC zone a thermostat
+may belong to.<a href="#section-3.1.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.1.4-2">Composition via linking may also be used to describe composite objects that
 include some more primitive basic types already
 defined in the specification. For example, a thermostat object type may be
@@ -1366,28 +1607,23 @@ of the heating and cooling systems.<a href="#section-3.1.4-2" class="pilcrow">¶
 </div>
 </section>
 </div>
-<div id="iot-frameworks">
+<div id="functional-interoperability">
 <section id="section-3.2">
-        <h3 id="name-iot-frameworks">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-iot-frameworks" class="section-name selfRef">IoT Frameworks</a>
+        <h3 id="name-functional-interoperability">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-functional-interoperability" class="section-name selfRef">Functional Interoperability</a>
         </h3>
 <p id="section-3.2-1">In addition to using the same information model, in order to interoperate
 IoT endpoints also need to use the
 common set of protocols and serialization mechanisms, compatible naming and
-addressing conventions, and operate
-in the common security perimeter. IoT frameworks are intended to provide
-full operational interoperability
-by extending their scope of definition beyond the data and information model
-to include specification
-of the complete operating environment for the compliant IoT nodes. In addition,
-frameworks may include
-bridges and protocol converters to facilitate interoperability with the devices
-and things that are using
-conventions and legacy protocols that may not be Internet compatible. IoT
-frameworks generally operate above the
-transport layer, but below the application layer (add IIC comms ref) .<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2-2">IoT and M2M frameworks may define some or all of the following:
-[NB: keep list below or just enumerate in a sentence?]<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+addressing conventions and operate
+in the common security perimeter.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">A working IoT system needs to provide a common operational environment for
+nodes to
+communicate. Some of its components may be defined by standards and other
+specified by convention
+or a particular system implementation. Environmental components needed for
+functional interoperability
+generally include:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-3.1">Data (information) model<a href="#section-3.2-3.1" class="pilcrow">¶</a>
 </li>
@@ -1402,76 +1638,121 @@ transport layer, but below the application layer (add IIC comms ref) .<a href="#
           <li class="normal" id="section-3.2-3.6">Device management and provisioning<a href="#section-3.2-3.6" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-3.2-4">Framework definition of data and information models typically include object
-type definitions, properties and interactions,
-with types of requests and responses, supported interfaces, methods, and
-access points for
-those.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
-<p id="section-3.2-5">Payload serialization refers to the common agreement on the format in which
+<p id="section-3.2-4">Payload serialization refers to the common agreement on the format in which
 messages appear
 "on the wire", i.e. are formatted by the sending node and parsed by the receiving
 one. Variants of JSON
 are commonly used for this purpose, although more compact forms of serializations,
 such as the binary
-CBOR <span>[<a href="#RFC8949" class="xref">RFC8949</a>]</span> may be favored for constrained nodes and networks.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
-<p id="section-3.2-6">Protocol bindings specify which protocols are supported and perhaps the port
+CBOR <span>[<a href="#RFC8949" class="xref">RFC8949</a>]</span> may be favored for constrained nodes and networks.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-5">Protocol bindings specify which protocols are supported and perhaps the port
 numbers on which they operate.
 In addition to the common Internet protocols, more compact versions, such
 as CoAP
-(<span>[<a href="#RFC7959" class="xref">RFC7959</a>]</span>) may be favored for constrained nodes or segments of the network.<a href="#section-3.2-6" class="pilcrow">¶</a></p>
-<p id="section-3.2-7">IoT frameworks usually define the conventions, namespaces, and mechanisms
+<span>[<a href="#RFC7959" class="xref">RFC7959</a>]</span> may be favored for constrained nodes or segments of the network.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
+<p id="section-3.2-6">Naming and addressing refer to the mechanisms used to access nodes in the
+system. They usually resolve to network
+IP addresses, but may also include higher-level mapping constructs such as
+URLs and URIs.<a href="#section-3.2-6" class="pilcrow">¶</a></p>
+<p id="section-3.2-7">Discovery provides means to identify other nodes in the system to communicate
+with or to form
+groupings of interest. They can include discovery through network scanning
+to identify nodes. This is
+usually combined with mechanisms and conventions to access machine-readable
+descriptions of the nature
+and capabilities of nodes at actively used addresses. Another approach is
+to create directories where
+nodes get registered during the activation process and are discovered by
+queries.<a href="#section-3.2-7" class="pilcrow">¶</a></p>
+<p id="section-3.2-8">A working IoT system typically implements security requirements, conventions,
+and protocols for node authentication,
+access authorization, and secure communication. In order to access each other
+and to communicate, all nodes must
+adhere to the rules and use the commonly prescribed system procedures. Security
+system usually maintains and updates
+security postures and policies of IoT nodes and monitors their activity to
+detect and deal with anomalous behaviors
+such as intrusions and probing.<a href="#section-3.2-8" class="pilcrow">¶</a></p>
+<p id="section-3.2-9">Device management, like security, is part of the control plane of an IoT
+system. It is often implemented to
+keep the system operational, track states of its components - such as active
+or inactive - and often manages
+distribution and application of software and firmware updates.<a href="#section-3.2-9" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="iot-frameworks">
+<section id="section-3.3">
+        <h3 id="name-iot-frameworks">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-iot-frameworks" class="section-name selfRef">IoT Frameworks</a>
+        </h3>
+<p id="section-3.3-1">IoT frameworks are more prescriptive forms of IoT standards intended to provide
+full operational interoperability
+by extending their scope of definition beyond the data and information model
+to include specification
+of the complete operating environment for the compliant IoT nodes. In addition,
+frameworks may include
+bridges and protocol converters to facilitate interoperability with the devices
+and things that are using
+conventions and legacy protocols that may not be Internet compatible. IoT
+frameworks generally operate above the
+transport layer, but below the application layer (<span>[<a href="#ITU" class="xref">ITU</a>]</span>).<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-2">Framework definition of data and information models typically include object
+type definitions, properties and interactions,
+with types of requests and responses, supported interfaces, methods, and
+access points for those.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
+<p id="section-3.3-3">IoT frameworks also tend to define the conventions, namespaces, and mechanisms
 to be used for the thing naming and addressing.
 Object instance name may be correlated to its addressing mechanism, so that
 knowing the name can be used to
-locate the target object directly or by consulting an appropriate thing directory.<a href="#section-3.2-7" class="pilcrow">¶</a></p>
-<p id="section-3.2-8">Frameworks may also specify security requirements for node connectivity and
+locate the target object directly or by consulting an appropriate thing directory.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
+<p id="section-3.3-4">Frameworks may also specify security requirements for node connectivity and
 compliance. These may include the required
 and sanctioned types of authentication, authorization, encryption, as well
-as supported security protocols, such as TLS.<a href="#section-3.2-8" class="pilcrow">¶</a></p>
-<p id="section-3.2-9">Some frameworks also specify elements of device management, such as the forms
+as supported security protocols, such as TLS.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
+<p id="section-3.3-5">Some frameworks also specify elements of device management, such as the forms
 of health and status reporting, software and security
-updating, and methods for initial device onboarding and provisioning.<a href="#section-3.2-9" class="pilcrow">¶</a></p>
-<p id="section-3.2-10">As indicated, IoT frameworks can define many aspects of an IoT system, well
+updating, and methods for initial device onboarding and provisioning.<a href="#section-3.3-5" class="pilcrow">¶</a></p>
+<p id="section-3.3-6">As indicated, IoT frameworks can define many aspects of an IoT system, well
 beyond the information model. Nodes wishing to
 interoperate within a framework must implement all of its applicable components.
 The positive side of using
 frameworks is that they can assure complete operational interoperability
 of nodes in an IoT system.
-In addition to the specification, some frameworks are implemented as middleware
-with tested and sanctioned
-implementation that can work on multiple platforms and can aid system implementations.
-They also may provide
-formal certification of product compliance that can be tested by the authorized
-entities.<a href="#section-3.2-10" class="pilcrow">¶</a></p>
-<p id="section-3.2-11">On the negative side, use of a framework requires adherence to all of its
+In addition to the framework specification, some SDOs also provide its instantions
+in terms of sanctioned
+software and middleware implementations. Some SDOs also provide tools and
+facilities for formal certification
+of vendor product compliance that should guarantee interoperability.<a href="#section-3.3-6" class="pilcrow">¶</a></p>
+<p id="section-3.3-7">On the negative side, use of a framework requires adherence to all of its
 mandatory parts which may be a problem when its
 specification is at odds with the design preferences and requirements of
 a particular IoT system. Another practical
 problem is that framework compliance may limit system implementations to
 only those thing types that are defined
-in its specification.<a href="#section-3.2-11" class="pilcrow">¶</a></p>
+in its specification.<a href="#section-3.3-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
-<div id="characteristics-list-tbr">
+<div id="characteristics-list">
 <section id="section-4">
-      <h2 id="name-characteristics-list-tbr">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-characteristics-list-tbr" class="section-name selfRef">Characteristics List... tbr</a>
+      <h2 id="name-characteristics-list">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-characteristics-list" class="section-name selfRef">Characteristics List</a>
       </h2>
-<p id="section-4-1">A partial list of recommended characteristics that documents and specifications
+<p id="section-4-1">[NB: to be revised based on group feedback and consensus]<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">A partial list of recommended characteristics that documents and specifications
 of IoT data and
-information models should explicitly state (or articulate?).<a href="#section-4-1" class="pilcrow">¶</a></p>
+information models should explicitly state (or articulate?).<a href="#section-4-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4-2.1">Objective<a href="#section-4-2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4-3.1">Objective<a href="#section-4-3.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-4-2.2">Domain<a href="#section-4-2.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-4-3.2">Domain<a href="#section-4-3.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-4-2.3">Environmental Assumptions<a href="#section-4-2.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-4-3.3">Environmental Assumptions<a href="#section-4-3.3" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-4-2.4">Interoperability Assumptions<a href="#section-4-2.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-4-3.4">Terminology<a href="#section-4-3.4" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-4-2.5">Would be Nice to Know<a href="#section-4-2.5" class="pilcrow">¶</a>
+        <li class="normal" id="section-4-3.5">Would be Nice to Know<a href="#section-4-3.5" class="pilcrow">¶</a>
 </li>
       </ul>
 <div id="objective">
@@ -1481,13 +1762,14 @@ information models should explicitly state (or articulate?).<a href="#section-4-
         </h3>
 <p id="section-4.1-1">What is the objective of the specification? What does the specification cover?
 It may be to define data models
-or information models for IoT endpoints (things) in general or in particular
-domain. Or it may be to provide
-a meta-model specifications providing thing abstractions that the specific
+or information models for IoT endpoints (things) in general or in a particular
+domain. Or it may be
+a meta-model specification providing thing abstractions that the specific
 information and data models
 can be mapped to and from. Or it may be a framework, in which case it should
-be specified which additional system
-aspects it defines, such as security, naming, discovery, communication protocols,
+be specified which additional aspects
+of the operational environment it defines, such as security, naming, discovery,
+communication protocols,
 and serialization methods.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1497,14 +1779,17 @@ and serialization methods.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-domain" class="section-name selfRef">Domain</a>
         </h3>
 <p id="section-4.2-1">What is the target usage domain for the specification? A specification may
-Target or be optimized for a particular
-domain, such as smart home, industrial, manufacturing, transportation, or
+target or be optimized for a particular
+domain, such as smart home, healthcare, industrial, manufacturing, transportation,
 agriculture. Choice of the domain is
 reflected in the specific types of objects and things for which the information
 model is defined. While the
 specification charter and ambitions may make broader claims, the types of
 actually defined information
-models effectively determine what it may be used for.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+models effectively determine what it may be used for. Domains of the specified
+objects should be stated.
+Identifying target domains for future iterations of the specification would
+also be helpful.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="environmental-assumptions">
@@ -1518,8 +1803,8 @@ a common information model, but also a compatible or common set of communication
 protocols,
 data serialization mechanisms, naming and addressing conventions, and operate
 in the
-common security perimeter. In a way, these are environmental conditions in
-which the
+common security perimeter. In effect, these are environmental conditions
+in which the
 nodes need to operate in order to achieve full interoperability.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <p id="section-4.3-2">IoT standard needs to indicate which of these elements are included in its
 specification and which elements are required for its proper implementation.
@@ -1528,41 +1813,67 @@ to be provided in terms of specific protocol bindings and serialization
 methods, naming, and discovery of nodes.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
 <p id="section-4.3-3">IoT standards should also state which parts they intentionally do not cover,
 say security,
-to indicate that those need to be implemented separately if required.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+to indicate that those need to be defined and implemented separately if required.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="terminology">
+<section id="section-4.4">
+        <h3 id="name-terminology">
+<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-terminology" class="section-name selfRef">Terminology</a>
+        </h3>
+<p id="section-4.4-1">Different standards groups tend to use different terminology and sometimes
+even
+use the same terms to refer to different concepts. This can cause confusion
+in
+understanding and interpreting their specifications. It is therefore advisable
+for
+specifications to define their key terms early on. This does not need to
+be a formal
+dictionary, a simple identification of the terms used to refer to
+elements of the IoT information model depicted in Table 1 would go a long
+way towards
+accomplishing this goal.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="would-be-nice-to-know">
-<section id="section-4.4">
+<section id="section-4.5">
         <h3 id="name-would-be-nice-to-know">
-<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-would-be-nice-to-know" class="section-name selfRef">Would be Nice to Know</a>
+<a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-would-be-nice-to-know" class="section-name selfRef">Would be Nice to Know</a>
         </h3>
-<p id="section-4.4-1">These may include<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+<p id="section-4.5-1">[NB: should this be a separate indented list of categories or a simple continuation
+of
+the previous one?]<a href="#section-4.5-1" class="pilcrow">¶</a></p>
+<p id="section-4.5-2">While not strictly necessary for understanding the basic tenets of a specification,
+it would
+be useful to address the additional items that are generally of interest
+to potential
+adopters. These may include:<a href="#section-4.5-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.4-2.1">Metadata Handling<a href="#section-4.4-2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.5-3.1">Metadata Handling<a href="#section-4.5-3.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.4-2.2">Creation of New Object Types<a href="#section-4.4-2.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.5-3.2">Creation of New Object Types<a href="#section-4.5-3.2" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.4-2.3">Development Considerations and Assumptions<a href="#section-4.4-2.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.5-3.3">Development Considerations and Assumptions<a href="#section-4.5-3.3" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.4-2.4">Tools, Reference Implementations<a href="#section-4.4-2.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.5-3.4">Tools, Reference Implementations<a href="#section-4.5-3.4" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.4-2.5">Licensing Requirements and Terms<a href="#section-4.4-2.5" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.5-3.5">Licensing Requirements and Terms<a href="#section-4.5-3.5" class="pilcrow">¶</a>
 </li>
         </ul>
 <div id="metadata-handling">
-<section id="section-4.4.1">
+<section id="section-4.5.1">
           <h4 id="name-metadata-handling">
-<a href="#section-4.4.1" class="section-number selfRef">4.4.1. </a><a href="#name-metadata-handling" class="section-name selfRef">Metadata Handling</a>
+<a href="#section-4.5.1" class="section-number selfRef">4.5.1. </a><a href="#name-metadata-handling" class="section-name selfRef">Metadata Handling</a>
           </h4>
-<p id="section-4.4.1-1">Metadata, also called tags, are used in IoT systems provide contextual semantics
+<p id="section-4.5.1-1">Metadata, also called tags, are used in IoT systems provide contextual semantics
 and
 create more useful data for a variety of post-processing services and applications,
 such as analytics and device/asset management. Metadata annotations can provide
 enriched
 contextual information in the form of additional attributes of a thing's
 functionality,
-geographic location, manufacturer, serial number, and the like.<a href="#section-4.4.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.4.1-2">Information and data models often specify some metadata as object properties
+geographic location, manufacturer, serial number, and the like.<a href="#section-4.5.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.5.1-2">Information and data models often specify some metadata as object properties
 or
 attributes. These are typically inherent properties of the things being modeled,
 such as the units of measure used by a temperature sensor when reporting
@@ -1574,8 +1885,8 @@ later in the system lifecycle, e.g. at installation time.
 For example, additional metadata may indicate
 that an air temperature sensor in a specific room is part of an HVAC zone
 whose
-ambient conditions are regulated by a named air-handling unit.<a href="#section-4.4.1-2" class="pilcrow">¶</a></p>
-<p id="section-4.4.1-3">This kind of information may be consumed by an application to programmatically
+ambient conditions are regulated by a named air-handling unit.<a href="#section-4.5.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.5.1-3">This kind of information may be consumed by an application to programmatically
 determine
 which HVAC components to actuate in order to reduce or increase ambient
 temperature as dictated by the associated thermostat schedule or a user
@@ -1584,18 +1895,19 @@ Without the metadata, knowledge of structural relations among nodes would
 have to
 be hard coded into an application and customized for each specific installation,
 resulting in implementations that are brittle, not portable, time consuming,
-and error prone.<a href="#section-4.4.1-3" class="pilcrow">¶</a></p>
-<p id="section-4.4.1-4">It would be useful to know if creators of the particular information model
-have a mechanism or a
-position on handling additional metadata beyond its basic specification.<a href="#section-4.4.1-4" class="pilcrow">¶</a></p>
+and error prone.<a href="#section-4.5.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.5.1-4">It would be useful to know if creators of the particular information model
+have a mechanism for or
+a position on handling additional metadata beyond its basic specification.
+[NB: maybe mention haystack as an example of adding free-form metadata]<a href="#section-4.5.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="creation-of-new-object-types">
-<section id="section-4.4.2">
+<section id="section-4.5.2">
           <h4 id="name-creation-of-new-object-type">
-<a href="#section-4.4.2" class="section-number selfRef">4.4.2. </a><a href="#name-creation-of-new-object-type" class="section-name selfRef">Creation of New Object Types</a>
+<a href="#section-4.5.2" class="section-number selfRef">4.5.2. </a><a href="#name-creation-of-new-object-type" class="section-name selfRef">Creation of New Object Types</a>
           </h4>
-<p id="section-4.4.2-1">Data and information models provide definitions for a
+<p id="section-4.5.2-1">Data and information models provide definitions for a
 number of object types representing things in their target domain. Their
 number
 and variety is limited to what the defining organization sees as important,
@@ -1603,14 +1915,16 @@ has
 the bandwidth to specify, and can reach a consensus on. The number and type
 of
 covered devices tends to change and grow over time, as reflected in evolving
-revisions of the specification.<a href="#section-4.4.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.4.2-2">This can present a problem to adopters who wish to use
+revisions of the specification.<a href="#section-4.5.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.5.2-2">This can present a problem to adopters who wish to use
 the specification, but need to incorporate IoT device types
-that are not defined in it. Such users need to define a
-device model, preferably with a prospect of remaining compliant
-with the specification as it evolves.<a href="#section-4.4.2-2" class="pilcrow">¶</a></p>
-<p id="section-4.4.2-3">Various SDOs have different approaches to definition of new models. Some simply
-wait until agreeing on things types to be defined in future iterations. Others
+that are not (yet) defined in it. Such users need to define a
+device model, preferably with a prospect of being compliant or at least
+subject to minimal modifications as the specification evolves to include
+new types.<a href="#section-4.5.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.5.2-3">Various SDOs have different approaches to definition of new models. Some
+simply
+wait until agreeing on thing types to be defined in future iterations. Others
 encourage crowd-sourcing of new models, where expert groups or individual
 companies propose new models, often after implementing and proving them in
 internal use. Naturally, such proposals need to be consistent with the architectural
@@ -1621,47 +1935,49 @@ be
 eventually approved by the SDO and modified if necessary for adoption. In
 general,
 crowdsourcing of thing models tends to accelerate the coverage and encourage
-experimentation and innovation by interested adopters.<a href="#section-4.4.2-3" class="pilcrow">¶</a></p>
-<p id="section-4.4.2-4">Creators of specifications of IoT data models should indicate their process
-for creation of new object types.<a href="#section-4.4.2-4" class="pilcrow">¶</a></p>
+experimentation and innovation by interested adopters.<a href="#section-4.5.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.5.2-4">Creators of specifications of IoT data models should indicate their process
+for creation of new object types. It would also be helpful to provide a recommendation
+on how to deal with them in the interim.<a href="#section-4.5.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="development-considerations-and-assumptions">
-<section id="section-4.4.3">
+<section id="section-4.5.3">
           <h4 id="name-development-considerations-">
-<a href="#section-4.4.3" class="section-number selfRef">4.4.3. </a><a href="#name-development-considerations-" class="section-name selfRef">Development Considerations and Assumptions</a>
+<a href="#section-4.5.3" class="section-number selfRef">4.5.3. </a><a href="#name-development-considerations-" class="section-name selfRef">Development Considerations and Assumptions</a>
           </h4>
-<p id="section-4.4.3-1">Specifications typically define the details of the types and format of legal
+<p id="section-4.5.3-1">Specifications typically define the details of the types and format of legal
 node behaviors and their actions
 and interactions, often in the form of well-formed requests and expected
 or permissible replies. We posit that
 implementation developers would be well served by summarizing the totality
 of what a compliant node is required
 and assumed to be able to do. Additional clarification may be provided by
-what is possible to happen at
-the two distinct parts of the node lifecycle - design time and runtime when
-the node is in operation.<a href="#section-4.4.3-1" class="pilcrow">¶</a></p>
-<p id="section-4.4.3-2">At the design time, the code is written to implement the applicable node
+what is possible and assumed to happen
+at the two distinct parts of the node lifecycle - design time when the code
+is written and runtime
+when the node is in operation.<a href="#section-4.5.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.5.3-2">At the design time, the code is written to implement the applicable node
 behaviors defined by the specification.
 This includes all mandatory parts of the specification, and compliant implementation
 of the chosen subset of
 the optional parts of the specification that node designers deem relevant
 and appropriate for the purposes of
-their target application.<a href="#section-4.4.3-2" class="pilcrow">¶</a></p>
-<p id="section-4.4.3-3">At runtime, when the node is in operation, it can probe other nodes (that
+their target application.<a href="#section-4.5.3-2" class="pilcrow">¶</a></p>
+<p id="section-4.5.3-3">At runtime, when the node is in operation, it can probe other nodes (that
 it knows of and is authorized to access)
 to determine potential existence of optional elements of the specification
 that the two nodes may be able
 to engage in if the necessary support is provided at both ends. Defined actions
 of runtime behavior are
 commonly provided by the specification and their existence and support discovered
-by runtime queries.<a href="#section-4.4.3-3" class="pilcrow">¶</a></p>
-<p id="section-4.4.3-4">Some specifications and frameworks go further by providing mechanisms and
+by runtime queries.<a href="#section-4.5.3-3" class="pilcrow">¶</a></p>
+<p id="section-4.5.3-4">Some specifications and frameworks go further by providing mechanisms and
 conventions for nodes to discover
-behaviors that they have not previously "seen" and learn how to deal with
-them at runtime. The idea is that
-ontologies and machine-readable specifications may be used and provided in
-the system for nodes to "learn"
+behaviors that they have not previously "seen" (programmed to deal with)
+and to learn how to deal with them at runtime.
+The idea is that ontologies and machine-readable specifications may be used
+and provided in the system for nodes to "learn"
 what to do as and when necessary. Such elements may not be explicitly defined
 in the specification, but
 they may be inferred or learned from the associated and perhaps separately
@@ -1670,77 +1986,77 @@ that the node that does the query may not have the requisite pre-programmed
 (at design time) interactions,
 but needs to have the capability to query the encodings of knowledge and
 construct appropriate behaviors at
-runtime.<a href="#section-4.4.3-4" class="pilcrow">¶</a></p>
-<p id="section-4.4.3-5">Specifications that include these possibilities do not often explain their
+runtime.<a href="#section-4.5.3-4" class="pilcrow">¶</a></p>
+<p id="section-4.5.3-5">Specifications that include these possibilities do not often explain their
 scope and assumed operation
 very well. On the other hand, such elements tend to be quite complex and
 difficult to implement and test.
 Clearly articulating what is intended and assumed, and how to properly use
 this capability when present,
 would go a long way towards improving the chances of correct and interoperable
-implementations.<a href="#section-4.4.3-5" class="pilcrow">¶</a></p>
+implementations.<a href="#section-4.5.3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="tools-reference-implementations">
-<section id="section-4.4.4">
+<section id="section-4.5.4">
           <h4 id="name-tools-reference-implementat">
-<a href="#section-4.4.4" class="section-number selfRef">4.4.4. </a><a href="#name-tools-reference-implementat" class="section-name selfRef">Tools, Reference Implementations</a>
+<a href="#section-4.5.4" class="section-number selfRef">4.5.4. </a><a href="#name-tools-reference-implementat" class="section-name selfRef">Tools, Reference Implementations</a>
           </h4>
-<p id="section-4.4.4-1">Provide functional description of any additional tools or reference implementations
+<p id="section-4.5.4-1">Provide functional description of any additional tools or reference implementations
 that
 may be available to developers. Describe language dependencies or preferences,
 if any,
-that may result from the specific bindings or reference implementations.<a href="#section-4.4.4-1" class="pilcrow">¶</a></p>
+that may result from the specific bindings or reference implementations.<a href="#section-4.5.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="licensing-terms">
-<section id="section-4.4.5">
+<section id="section-4.5.5">
           <h4 id="name-licensing-terms">
-<a href="#section-4.4.5" class="section-number selfRef">4.4.5. </a><a href="#name-licensing-terms" class="section-name selfRef">Licensing Terms</a>
+<a href="#section-4.5.5" class="section-number selfRef">4.5.5. </a><a href="#name-licensing-terms" class="section-name selfRef">Licensing Terms</a>
           </h4>
-<p id="section-4.4.5-1">Indicate the terms and conditions for implementing a particular specification.
+<p id="section-4.5.5-1">Indicate the terms and conditions for implementing a particular specification.
 These
 may include requirements for membership in the associated SDO, licensing
 fees, or a
 mandate to share any modifications and enhancements with the community. Differences,
 if any,
-for licensing research vs. commercial implementations should be pointed out.<a href="#section-4.4.5-1" class="pilcrow">¶</a></p>
+for licensing research vs. commercial implementations should be pointed out.<a href="#section-4.5.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
-</section>
-</div>
-<div id="additional-stuff-appendices">
-<section id="section-5">
-      <h2 id="name-additional-stuff-appendices">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-additional-stuff-appendices" class="section-name selfRef">Additional Stuff: Appendices</a>
-      </h2>
-<p id="section-5-1">When available, include descriptions of contributed appendices that describe
-objectives and
-scope of specifications contributed by SDOs or volunteers.<a href="#section-5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="IANA">
-<section id="section-6">
+<section id="section-5">
       <h2 id="name-iana-considerations">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-6-1">This memo includes no request to IANA.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">All drafts are required to have an IANA considerations section (see <span><a href="#RFC5226" class="xref">Guidelines for Writing an IANA Considerations Section in RFCs</a> [<a href="#RFC5226" class="xref">RFC5226</a>]</span> for a guide). If the draft
+<p id="section-5-1">This memo includes no request to IANA.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">All drafts are required to have an IANA considerations section (see <span>[<a href="#RFC8126" class="xref">RFC8126</a>]</span> for a guide). If the draft
 does not require IANA to do anything, the section contains an explicit statement
 that this is the
 case (as above). If there are no requirements for IANA, the section will
-be removed during conversion into an RFC by the RFC Editor.<a href="#section-6-2" class="pilcrow">¶</a></p>
+be removed during conversion into an RFC by the RFC Editor.<a href="#section-5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="Security">
-<section id="section-7">
+<section id="section-6">
       <h2 id="name-security-considerations">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-7-1">All drafts are required to have a security considerations section.
-See <span><a href="#RFC3552" class="xref">RFC 3552</a> [<a href="#RFC3552" class="xref">RFC3552</a>]</span> for a guide.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">All drafts are required to have a security considerations section.
+See <span>[<a href="#RFC3552" class="xref">RFC3552</a>]</span> for a guide.<a href="#section-6-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="appendices">
+<section id="section-7">
+      <h2 id="name-appendices">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-appendices" class="section-name selfRef">Appendices</a>
+      </h2>
+<p id="section-7-1">When available, include descriptions of contributed appendices that describe
+objectives and
+scope of specifications contributed by SDOs or volunteers.<a href="#section-7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <section id="section-8">
@@ -1748,55 +2064,59 @@ See <span><a href="#RFC3552" class="xref">RFC 3552</a> [<a href="#RFC3552" class
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
       </h2>
 <dl class="references">
+<dt id="IIC">[IIC]</dt>
+      <dd>
+<span class="refAuthor">Industry IoT Consortium</span>, <span class="refTitle">"The Industrial Internet of Things: Vol. G5: Connectivity Framework"</span>, <span class="seriesInfo">IIC IIC:PUB:G5:V1.01:PB:20180228</span>, <time datetime="2018" class="refDate">2018</time>. </dd>
+<dd class="break"></dd>
+<dt id="iotbook">[iotbook]</dt>
+      <dd>
+<span class="refAuthor">Milenkovic, M.</span>, <span class="refTitle">"Internet of Things: Concepts and System Design"</span>, <span class="refContent">Springer Nature Publishing</span>, <time datetime="2020" class="refDate">2020</time>. </dd>
+<dd class="break"></dd>
 <dt id="ITU">[ITU]</dt>
       <dd>
 <span class="refAuthor">International Telecommunications Union</span>, <span class="refTitle">"Overview of the internet of things"</span>, <span class="seriesInfo">ITU-T Y.4000/Y.2600</span>, <time datetime="2016" class="refDate">2016</time>. </dd>
 <dd class="break"></dd>
-<dt id="r-book">[r-book]</dt>
-      <dd>
-<span class="refAuthor">Milenkovic, M.</span>, <span class="refTitle">"Internet of Things: Concepts and System Design"</span>, <span class="seriesInfo">Springer Nature Publishing</span>, <time datetime="2020" class="refDate">2020</time>. </dd>
-<dd class="break"></dd>
 <dt id="RFC3444">[RFC3444]</dt>
       <dd>
-<span class="refAuthor">Pras, A.</span> and <span class="refAuthor">J. Schoenwaelder</span>, <span class="refTitle">"On the Difference between Information Models and Data Models"</span>, <span class="seriesInfo">RFC 3444</span>, <span class="seriesInfo">DOI 10.17487/RFC3444</span>, <time datetime="2003-01" class="refDate">January 2003</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc3444">https://datatracker.ietf.org/doc/html/rfc3444</a>&gt;</span>. </dd>
+<span class="refAuthor">Pras, A.</span> and <span class="refAuthor">J. Schoenwaelder</span>, <span class="refTitle">"On the Difference between Information Models and Data Models"</span>, <span class="seriesInfo">RFC 3444</span>, <span class="seriesInfo">DOI 10.17487/RFC3444</span>, <time datetime="2003-01" class="refDate">January 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3444">https://www.rfc-editor.org/rfc/rfc3444</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC3552">[RFC3552]</dt>
       <dd>
-<span class="refAuthor">Rescorla, E.</span> and <span class="refAuthor">B. Korver</span>, <span class="refTitle">"Guidelines for Writing RFC Text on Security Considerations"</span>, <span class="seriesInfo">BCP 72</span>, <span class="seriesInfo">RFC 3552</span>, <span class="seriesInfo">DOI 10.17487/RFC3552</span>, <time datetime="2003-07" class="refDate">July 2003</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc3552">https://datatracker.ietf.org/doc/html/rfc3552</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC5226">[RFC5226]</dt>
-      <dd>
-<span class="refAuthor">Narten, T.</span> and <span class="refAuthor">H. Alvestrand</span>, <span class="refTitle">"Guidelines for Writing an IANA Considerations Section in RFCs"</span>, <span class="seriesInfo">RFC 5226</span>, <span class="seriesInfo">DOI 10.17487/RFC5226</span>, <time datetime="2008-05" class="refDate">May 2008</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc5226">https://datatracker.ietf.org/doc/html/rfc5226</a>&gt;</span>. </dd>
+<span class="refAuthor">Rescorla, E.</span> and <span class="refAuthor">B. Korver</span>, <span class="refTitle">"Guidelines for Writing RFC Text on Security Considerations"</span>, <span class="seriesInfo">BCP 72</span>, <span class="seriesInfo">RFC 3552</span>, <span class="seriesInfo">DOI 10.17487/RFC3552</span>, <time datetime="2003-07" class="refDate">July 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3552">https://www.rfc-editor.org/rfc/rfc3552</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7959">[RFC7959]</dt>
       <dd>
-<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">Z. Shelby, Ed.</span>, <span class="refTitle">"Block-Wise Transfers in the Constrained Application Protocol (CoAP)"</span>, <span class="seriesInfo">RFC 7959</span>, <span class="seriesInfo">DOI 10.17487/RFC7959</span>, <time datetime="2016-08" class="refDate">August 2016</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc7959">https://datatracker.ietf.org/doc/html/rfc7959</a>&gt;</span>. </dd>
+<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">Z. Shelby, Ed.</span>, <span class="refTitle">"Block-Wise Transfers in the Constrained Application Protocol (CoAP)"</span>, <span class="seriesInfo">RFC 7959</span>, <span class="seriesInfo">DOI 10.17487/RFC7959</span>, <time datetime="2016-08" class="refDate">August 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7959">https://www.rfc-editor.org/rfc/rfc7959</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8126">[RFC8126]</dt>
+      <dd>
+<span class="refAuthor">Cotton, M.</span>, <span class="refAuthor">Leiba, B.</span>, and <span class="refAuthor">T. Narten</span>, <span class="refTitle">"Guidelines for Writing an IANA Considerations Section in RFCs"</span>, <span class="seriesInfo">BCP 26</span>, <span class="seriesInfo">RFC 8126</span>, <span class="seriesInfo">DOI 10.17487/RFC8126</span>, <time datetime="2017-06" class="refDate">June 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8126">https://www.rfc-editor.org/rfc/rfc8126</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8949">[RFC8949]</dt>
     <dd>
-<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">P. Hoffman</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR)"</span>, <span class="seriesInfo">STD 94</span>, <span class="seriesInfo">RFC 8949</span>, <span class="seriesInfo">DOI 10.17487/RFC8949</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/rfc8949">https://datatracker.ietf.org/doc/html/rfc8949</a>&gt;</span>. </dd>
+<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">P. Hoffman</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR)"</span>, <span class="seriesInfo">STD 94</span>, <span class="seriesInfo">RFC 8949</span>, <span class="seriesInfo">DOI 10.17487/RFC8949</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8949">https://www.rfc-editor.org/rfc/rfc8949</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
 <div id="app-additional">
-<section id="section-appendix.a">
+<section id="appendix-A">
       <h2 id="name-additional-stuff">
-<a href="#section-appendix.a" class="section-number selfRef">Appendix A. </a><a href="#name-additional-stuff" class="section-name selfRef">Additional Stuff</a>
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-additional-stuff" class="section-name selfRef">Additional Stuff</a>
       </h2>
-<p id="section-appendix.a-1">Placeholder for SDOs or volunteers to provide their descriptions that meet
-the suggested guidelines<a href="#section-appendix.a-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">Placeholder for SDOs or volunteers to provide their descriptions that meet
+the suggested guidelines<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="Acknowledgements">
-<section id="section-appendix.b">
+<section id="appendix-B">
       <h2 id="name-acknowledgements">
 <a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
       </h2>
-<p id="section-appendix.b-1">Add acks, contributors etc<a href="#section-appendix.b-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-1">Add acks, contributors etc<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="section-appendix.c">
+<section id="appendix-C">
       <h2 id="name-authors-address">
 <a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
       </h2>

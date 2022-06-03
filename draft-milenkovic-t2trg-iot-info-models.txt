@@ -4,20 +4,40 @@
 
 T2T Research Group                                    M. Milenkovic, Ed.
 Internet-Draft                                              IoTsense LLC
-Intended status: Informational                              17 June 2021
-Expires: 19 December 2021
+Intended status: Informational                               3 June 2022
+Expires: 5 December 2022
 
 
-              IoT Information-Model Standards Description
+    IoT Information-Model Standards Description ("Nutrition Label")
              draft-milenkovic-t2trg-iot-info-models-latest
 
 Abstract
 
-   [NB: need to do abstract later]
+   Implementation of IoT systems imposes a requirement of M2M semantic
+   interoperability.  This problem is addressed by a number of ongoing
+   attempts to define and standardize IoT information and data models.
+   At present this work is fragmented across several standards with
+   different approaches, scope, objectives, terminology, and assumptions
+   that makes them difficult to understand and compare.  This document
+   is part of the effort to alleviate that problem by means of more
+   streamlined presentations and descriptions.
 
-   Write later using an abbreviated version of the next section, whom is
-   the document for, followed by a summary of what is covered in the
-   paper.
+   We are advocating for clear articulation of the intent and implicit
+   or explicit assumptions in SDO specifications using the common
+   terminology.  Such clarifications would aid IoT practitioners and
+   potential adopters to make meaningful comparisons and facilitate
+   selection of IoT specifications that are the best fit for their
+   intended purpose.  To that end, we propose that creators of IoT
+   standards address a list of questions that would characterize their
+   work in comparable ways, somewhat akin to the intent of nutrition
+   labels for food.
+
+   This paper describes the basic design principles and practices of IoT
+   information and data model definitions, and proposes an initial list
+   of questions that SDOs may address to facilitate understanding and
+   comparisons.  Our intent is to evolve and refine this list over time
+   by actively soliciting and incorporating feedback and suggestions of
+   IoT community.
 
 Discussion Venues
 
@@ -45,11 +65,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 December 2021.
+   This Internet-Draft will expire on 5 December 2022.
 
 Copyright Notice
 
-   Copyright (c) 2021 IETF Trust and the persons identified as the
+   Copyright (c) 2022 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -68,20 +88,22 @@ Table of Contents
        3.1.2.  Properties, Attributes
        3.1.3.  Interactions
        3.1.4.  Links
-     3.2.  IoT Frameworks
-   4.  Characteristics List... tbr
+     3.2.  Functional Interoperability
+     3.3.  IoT Frameworks
+   4.  Characteristics List
      4.1.  Objective
      4.2.  Domain
      4.3.  Environmental Assumptions
-     4.4.  Would be Nice to Know
-       4.4.1.  Metadata Handling
-       4.4.2.  Creation of New Object Types
-       4.4.3.  Development Considerations and Assumptions
-       4.4.4.  Tools, Reference Implementations
-       4.4.5.  Licensing Terms
-   5.  Additional Stuff: Appendices
-   6.  IANA Considerations
-   7.  Security Considerations
+     4.4.  Terminology
+     4.5.  Would be Nice to Know
+       4.5.1.  Metadata Handling
+       4.5.2.  Creation of New Object Types
+       4.5.3.  Development Considerations and Assumptions
+       4.5.4.  Tools, Reference Implementations
+       4.5.5.  Licensing Terms
+   5.  IANA Considerations
+   6.  Security Considerations
+   7.  Appendices
    8.  Informative References
    Appendix A.  Additional Stuff
    Acknowledgements
@@ -153,24 +175,24 @@ Table of Contents
    measurements and actuation commands.  This machine-to-machine (M2M)
    mode of operation requires semantic interoperability in the sense
    that receiving nodes need to be able to "understand" the meaning of
-   data.  Defining meaning and understanding can get quite
-   philosophical.  In practical terms this means that the communicating
-   machines need a common agreement on how to model and semantically
-   annotate the behaviors and properties of the physical things in order
-   to represent, communicate, and process the data that they generate.
-   In other words, all communicating parties need to use the same
-   conceptual model of things that exist in their domain.  One way to
-   accomplish this is by having all parties use the same specification
-   of an IoT information model.
+   data.  Defining meaning and understanding is generally a
+   philosophical undertaking.  In practical terms as applied to M2M,
+   this means that the communicating machines need a common agreement on
+   how to model and semantically annotate the behaviors and properties
+   of the physical things in order to represent, communicate, and
+   interpret the data that they generate.  In other words, all
+   communicating parties need to use the same conceptual model of things
+   that exist in their domain.  One way to accomplish this is by having
+   all parties use the same specification of an IoT information model.
 
    Note that machine-level semantic interoperability is not required in
    the common usage of worldwide web where humans interpret the meaning
    of the presented web pages and thus achieve semantic interoperability
-   with data (content) creators (add ref later).
+   with data (content) creators [NB add interop harder ref later].
 
 3.  IoT Information Model
 
-   NB: this is a context setting section, but not the thrust of the
+   [NB: this is a context setting section, but not the thrust of the
    paper, so may need to be trimmed??..]
 
    An IoT information model is an abstract, formal representation of IoT
@@ -194,10 +216,10 @@ Table of Contents
                    | (Server) |---------------------->| (Client) |
                    +----------+                       +----------+
 
-                          Figure 1: Fig test title
+                Figure 1: Use of a Shared Information Model
 
    Figure 1 illustrates two endpoints in an IoT system that intend to
-   engage in data and control exchanges([r-book]).  As indicated
+   engage in data and control exchanges([iotbook]).  As indicated
    earlier, all communicating parties need to use the same conceptual
    model of things that exist in their domain.  A common way to
    accomplish this is by having all parties use the same specification
@@ -212,11 +234,10 @@ Table of Contents
    Following the Internet principles and practice, clients and servers
    exchange payloads and rely on an information-model specification for
    proper encoding and interpretation of the exchanged messages.  The
-   two endpoints are otherwise decoupled, they may be developed
+   two endpoints are otherwise decoupled, i.e., they may be developed
    independently of each other and operate on different platforms and
    runtime environments.  In this context, endpoint refers to software
-   agents that are acquiring (producing) or processing (consuming) real-
-   world data.
+   agents that are acquiring (producing) or processing (consuming) data.
 
    The IoT server internally implements the thing description as a
    cyber-world touch point for each particular instance using the format
@@ -234,13 +255,9 @@ Table of Contents
    and use them to issue queries and optionally command messages.  The
    client uses the shared information-model definition to properly
    format requests and interpret responses that it receives.  IoT
-   clients may reside in the cloud or at some intermediate point in the
-   system hierarchy, such as a peer thing node, gateway, or a fog node.
-
-   [NB: need to state somewhere that IoT models naturally have
-   similarities because they represent the same physical things, but
-   they differ because different SDOs choose different ways to abstract
-   them...]
+   clients may reside at the edge - such as a peer thing node or edge
+   gateway, at some intermediate point in the system hierarchy such as a
+   fog node, or in the cloud.
 
    Since objects are modeling real-world things, there are some implied
    semantics defined by the intrinsic nature of the thing that is being
@@ -259,23 +276,23 @@ Table of Contents
    representations.
 
     +========================+=======================================+
-    |        Element         |              Description              |
+    | Element                | Description                           |
     +========================+=======================================+
-    |      Object Type       | Physical thing being modeled (device) |
+    | Object Type            | Physical thing being modeled (device) |
     +------------------------+---------------------------------------+
-    | Properties, Attributes |   Object attributes, data, metadata   |
+    | Properties, Attributes | Object attributes, data, metadata     |
     +------------------------+---------------------------------------+
-    |      Interactions      |     Ways to interact with object,     |
-    |                        |            actions, events            |
+    | Interactions           | Ways to interact with object,         |
+    |                        | actions, events                       |
     +------------------------+---------------------------------------+
-    |         Links          |   To other objects, compositions and  |
-    |                        |              collections              |
+    | Links                  | To other objects, compositions and    |
+    |                        | collections                           |
     +------------------------+---------------------------------------+
 
                Table 1: Structure of IoT Information Model
 
-   IoT data models may specify only object types and properties of
-   modeled things, and leave out definition of interactions and links.
+   Some IoT data models specify only object types and properties of
+   modeled things and leave out definition of interactions and links.
 
 3.1.1.  Object Type
 
@@ -308,22 +325,23 @@ Table of Contents
    By using the type names exactly as defined in the vocabulary,
    communicating parties can establish an accurate correlation of
    references at both sending and receiving ends.  This is a simple and
-   effective way of establishing semantic interoperability at the model
-   level.
+   effective way of establishing semantic interoperability at object
+   type and naming level.
 
 3.1.2.  Properties, Attributes
 
-   Attributes generally say something about the object and its state,
-   such as for a temperature sensor its current reading in the
-   applicable units of measure, e.g. degrees C or F.  Standards usually
-   specify the exact format of the name fields and their meaning in the
-   vocabulary.  They also specify the data types for the values
-   associated with the particular name fields - such as numbers,
-   integers, or strings.  Values or attributes in thing abstraction
-   representations can be read-only, such as temperature reading, or
-   writable for actuation, or both.  They can also include metadata,
-   such as what the sensor is measuring, e. g. air or water temperature,
-   minimum and maximum possible values of reading, and the like.
+   Attributes generally say something about the object and its state.
+   This field is commonly used to represent sensor readings, such as for
+   a temperature sensor its current reading in the applicable units of
+   measure, e.g. degrees C or F.  Standards usually specify the exact
+   format of the name fields and their meaning in the vocabulary.  They
+   also specify the data types for the values associated with the
+   particular name fields - such as numbers, integers, or strings.
+   Values or attributes in thing abstraction representations can be
+   read-only, such as temperature reading, or writable for actuation, or
+   both.  They can also include metadata, such as what the sensor is
+   measuring, e. g. air or water temperature, minimum and maximum
+   possible values of reading, and the like.
 
 3.1.3.  Interactions
 
@@ -344,14 +362,14 @@ Table of Contents
 3.1.4.  Links
 
    Some sort of linking mechanism or representation is often included in
-   IoT information models, primarily as a mechanism to point to items of
-   interest or to form groupings of related objects.  Groupings of
-   interest may be formed to facilitate coordinated behaviors of
-   multiple devices, such as home-automation things.  They may also be
-   used to reflect structural properties of the physical connections
-   between devices as installed and configured in the field that may be
-   of interest to applications, such as indicating which HVAC zone a
-   temperature sensor and an air-handling unit belong to.
+   IoT information models, used primarily as a mechanism to point to
+   other items of interest or to form groupings of related objects.
+   Groupings of interest may be formed to facilitate coordinated
+   behaviors of multiple devices, such as home-automation things.  They
+   may also be used to reflect structural properties of the physical
+   connections between devices as installed and configured in the field
+   that may be of interest to applications, such as indicating which
+   room and HVAC zone a thermostat may belong to.
 
    Composition via linking may also be used to describe composite
    objects that include some more primitive basic types already defined
@@ -360,24 +378,18 @@ Table of Contents
    temperature regulation and scheduling, and actuators of the heating
    and cooling systems.
 
-3.2.  IoT Frameworks
+3.2.  Functional Interoperability
 
    In addition to using the same information model, in order to
    interoperate IoT endpoints also need to use the common set of
    protocols and serialization mechanisms, compatible naming and
-   addressing conventions, and operate in the common security perimeter.
-   IoT frameworks are intended to provide full operational
-   interoperability by extending their scope of definition beyond the
-   data and information model to include specification of the complete
-   operating environment for the compliant IoT nodes.  In addition,
-   frameworks may include bridges and protocol converters to facilitate
-   interoperability with the devices and things that are using
-   conventions and legacy protocols that may not be Internet compatible.
-   IoT frameworks generally operate above the transport layer, but below
-   the application layer (add IIC comms ref) .
+   addressing conventions and operate in the common security perimeter.
 
-   IoT and M2M frameworks may define some or all of the following: [NB:
-   keep list below or just enumerate in a sentence?]
+   A working IoT system needs to provide a common operational
+   environment for nodes to communicate.  Some of its components may be
+   defined by standards and other specified by convention or a
+   particular system implementation.  Environmental components needed
+   for functional interoperability generally include:
 
    *  Data (information) model
 
@@ -391,11 +403,6 @@ Table of Contents
 
    *  Device management and provisioning
 
-   Framework definition of data and information models typically include
-   object type definitions, properties and interactions, with types of
-   requests and responses, supported interfaces, methods, and access
-   points for those.
-
    Payload serialization refers to the common agreement on the format in
    which messages appear "on the wire", i.e. are formatted by the
    sending node and parsed by the receiving one.  Variants of JSON are
@@ -405,10 +412,55 @@ Table of Contents
 
    Protocol bindings specify which protocols are supported and perhaps
    the port numbers on which they operate.  In addition to the common
-   Internet protocols, more compact versions, such as CoAP ([RFC7959])
-   may be favored for constrained nodes or segments of the network.
+   Internet protocols, more compact versions, such as CoAP [RFC7959] may
+   be favored for constrained nodes or segments of the network.
 
-   IoT frameworks usually define the conventions, namespaces, and
+   Naming and addressing refer to the mechanisms used to access nodes in
+   the system.  They usually resolve to network IP addresses, but may
+   also include higher-level mapping constructs such as URLs and URIs.
+
+   Discovery provides means to identify other nodes in the system to
+   communicate with or to form groupings of interest.  They can include
+   discovery through network scanning to identify nodes.  This is
+   usually combined with mechanisms and conventions to access machine-
+   readable descriptions of the nature and capabilities of nodes at
+   actively used addresses.  Another approach is to create directories
+   where nodes get registered during the activation process and are
+   discovered by queries.
+
+   A working IoT system typically implements security requirements,
+   conventions, and protocols for node authentication, access
+   authorization, and secure communication.  In order to access each
+   other and to communicate, all nodes must adhere to the rules and use
+   the commonly prescribed system procedures.  Security system usually
+   maintains and updates security postures and policies of IoT nodes and
+   monitors their activity to detect and deal with anomalous behaviors
+   such as intrusions and probing.
+
+   Device management, like security, is part of the control plane of an
+   IoT system.  It is often implemented to keep the system operational,
+   track states of its components - such as active or inactive - and
+   often manages distribution and application of software and firmware
+   updates.
+
+3.3.  IoT Frameworks
+
+   IoT frameworks are more prescriptive forms of IoT standards intended
+   to provide full operational interoperability by extending their scope
+   of definition beyond the data and information model to include
+   specification of the complete operating environment for the compliant
+   IoT nodes.  In addition, frameworks may include bridges and protocol
+   converters to facilitate interoperability with the devices and things
+   that are using conventions and legacy protocols that may not be
+   Internet compatible.  IoT frameworks generally operate above the
+   transport layer, but below the application layer ([ITU]).
+
+   Framework definition of data and information models typically include
+   object type definitions, properties and interactions, with types of
+   requests and responses, supported interfaces, methods, and access
+   points for those.
+
+   IoT frameworks also tend to define the conventions, namespaces, and
    mechanisms to be used for the thing naming and addressing.  Object
    instance name may be correlated to its addressing mechanism, so that
    knowing the name can be used to locate the target object directly or
@@ -428,11 +480,11 @@ Table of Contents
    interoperate within a framework must implement all of its applicable
    components.  The positive side of using frameworks is that they can
    assure complete operational interoperability of nodes in an IoT
-   system.  In addition to the specification, some frameworks are
-   implemented as middleware with tested and sanctioned implementation
-   that can work on multiple platforms and can aid system
-   implementations.  They also may provide formal certification of
-   product compliance that can be tested by the authorized entities.
+   system.  In addition to the framework specification, some SDOs also
+   provide its instantions in terms of sanctioned software and
+   middleware implementations.  Some SDOs also provide tools and
+   facilities for formal certification of vendor product compliance that
+   should guarantee interoperability.
 
    On the negative side, use of a framework requires adherence to all of
    its mandatory parts which may be a problem when its specification is
@@ -441,7 +493,9 @@ Table of Contents
    may limit system implementations to only those thing types that are
    defined in its specification.
 
-4.  Characteristics List... tbr
+4.  Characteristics List
+
+   [NB: to be revised based on group feedback and consensus]
 
    A partial list of recommended characteristics that documents and
    specifications of IoT data and information models should explicitly
@@ -453,7 +507,7 @@ Table of Contents
 
    *  Environmental Assumptions
 
-   *  Interoperability Assumptions
+   *  Terminology
 
    *  Would be Nice to Know
 
@@ -461,24 +515,26 @@ Table of Contents
 
    What is the objective of the specification?  What does the
    specification cover?  It may be to define data models or information
-   models for IoT endpoints (things) in general or in particular domain.
-   Or it may be to provide a meta-model specifications providing thing
+   models for IoT endpoints (things) in general or in a particular
+   domain.  Or it may be a meta-model specification providing thing
    abstractions that the specific information and data models can be
    mapped to and from.  Or it may be a framework, in which case it
-   should be specified which additional system aspects it defines, such
-   as security, naming, discovery, communication protocols, and
-   serialization methods.
+   should be specified which additional aspects of the operational
+   environment it defines, such as security, naming, discovery,
+   communication protocols, and serialization methods.
 
 4.2.  Domain
 
    What is the target usage domain for the specification?  A
-   specification may Target or be optimized for a particular domain,
-   such as smart home, industrial, manufacturing, transportation, or
-   agriculture.  Choice of the domain is reflected in the specific types
-   of objects and things for which the information model is defined.
-   While the specification charter and ambitions may make broader
-   claims, the types of actually defined information models effectively
-   determine what it may be used for.
+   specification may target or be optimized for a particular domain,
+   such as smart home, healthcare, industrial, manufacturing,
+   transportation, agriculture.  Choice of the domain is reflected in
+   the specific types of objects and things for which the information
+   model is defined.  While the specification charter and ambitions may
+   make broader claims, the types of actually defined information models
+   effectively determine what it may be used for.  Domains of the
+   specified objects should be stated.  Identifying target domains for
+   future iterations of the specification would also be helpful.
 
 4.3.  Environmental Assumptions
 
@@ -486,8 +542,8 @@ Table of Contents
    use not only a common information model, but also a compatible or
    common set of communication protocols, data serialization mechanisms,
    naming and addressing conventions, and operate in the common security
-   perimeter.  In a way, these are environmental conditions in which the
-   nodes need to operate in order to achieve full interoperability.
+   perimeter.  In effect, these are environmental conditions in which
+   the nodes need to operate in order to achieve full interoperability.
 
    IoT standard needs to indicate which of these elements are included
    in its specification and which elements are required for its proper
@@ -496,12 +552,29 @@ Table of Contents
    and serialization methods, naming, and discovery of nodes.
 
    IoT standards should also state which parts they intentionally do not
-   cover, say security, to indicate that those need to be implemented
-   separately if required.
+   cover, say security, to indicate that those need to be defined and
+   implemented separately if required.
 
-4.4.  Would be Nice to Know
+4.4.  Terminology
 
-   These may include
+   Different standards groups tend to use different terminology and
+   sometimes even use the same terms to refer to different concepts.
+   This can cause confusion in understanding and interpreting their
+   specifications.  It is therefore advisable for specifications to
+   define their key terms early on.  This does not need to be a formal
+   dictionary, a simple identification of the terms used to refer to
+   elements of the IoT information model depicted in Table 1 would go a
+   long way towards accomplishing this goal.
+
+4.5.  Would be Nice to Know
+
+   [NB: should this be a separate indented list of categories or a
+   simple continuation of the previous one?]
+
+   While not strictly necessary for understanding the basic tenets of a
+   specification, it would be useful to address the additional items
+   that are generally of interest to potential adopters.  These may
+   include:
 
    *  Metadata Handling
 
@@ -513,7 +586,7 @@ Table of Contents
 
    *  Licensing Requirements and Terms
 
-4.4.1.  Metadata Handling
+4.5.1.  Metadata Handling
 
    Metadata, also called tags, are used in IoT systems provide
    contextual semantics and create more useful data for a variety of
@@ -544,10 +617,11 @@ Table of Contents
    portable, time consuming, and error prone.
 
    It would be useful to know if creators of the particular information
-   model have a mechanism or a position on handling additional metadata
-   beyond its basic specification.
+   model have a mechanism for or a position on handling additional
+   metadata beyond its basic specification.  [NB: maybe mention haystack
+   as an example of adding free-form metadata]
 
-4.4.2.  Creation of New Object Types
+4.5.2.  Creation of New Object Types
 
    Data and information models provide definitions for a number of
    object types representing things in their target domain.  Their
@@ -558,12 +632,13 @@ Table of Contents
 
    This can present a problem to adopters who wish to use the
    specification, but need to incorporate IoT device types that are not
-   defined in it.  Such users need to define a device model, preferably
-   with a prospect of remaining compliant with the specification as it
-   evolves.
+   (yet) defined in it.  Such users need to define a device model,
+   preferably with a prospect of being compliant or at least subject to
+   minimal modifications as the specification evolves to include new
+   types.
 
    Various SDOs have different approaches to definition of new models.
-   Some simply wait until agreeing on things types to be defined in
+   Some simply wait until agreeing on thing types to be defined in
    future iterations.  Others encourage crowd-sourcing of new models,
    where expert groups or individual companies propose new models, often
    after implementing and proving them in internal use.  Naturally, such
@@ -577,9 +652,10 @@ Table of Contents
    innovation by interested adopters.
 
    Creators of specifications of IoT data models should indicate their
-   process for creation of new object types.
+   process for creation of new object types.  It would also be helpful
+   to provide a recommendation on how to deal with them in the interim.
 
-4.4.3.  Development Considerations and Assumptions
+4.5.3.  Development Considerations and Assumptions
 
    Specifications typically define the details of the types and format
    of legal node behaviors and their actions and interactions, often in
@@ -587,8 +663,9 @@ Table of Contents
    We posit that implementation developers would be well served by
    summarizing the totality of what a compliant node is required and
    assumed to be able to do.  Additional clarification may be provided
-   by what is possible to happen at the two distinct parts of the node
-   lifecycle - design time and runtime when the node is in operation.
+   by what is possible and assumed to happen at the two distinct parts
+   of the node lifecycle - design time when the code is written and
+   runtime when the node is in operation.
 
    At the design time, the code is written to implement the applicable
    node behaviors defined by the specification.  This includes all
@@ -607,16 +684,16 @@ Table of Contents
 
    Some specifications and frameworks go further by providing mechanisms
    and conventions for nodes to discover behaviors that they have not
-   previously "seen" and learn how to deal with them at runtime.  The
-   idea is that ontologies and machine-readable specifications may be
-   used and provided in the system for nodes to "learn" what to do as
-   and when necessary.  Such elements may not be explicitly defined in
-   the specification, but they may be inferred or learned from the
-   associated and perhaps separately evolved ontologies.  This implies
-   that the node that does the query may not have the requisite pre-
-   programmed (at design time) interactions, but needs to have the
-   capability to query the encodings of knowledge and construct
-   appropriate behaviors at runtime.
+   previously "seen" (programmed to deal with) and to learn how to deal
+   with them at runtime.  The idea is that ontologies and machine-
+   readable specifications may be used and provided in the system for
+   nodes to "learn" what to do as and when necessary.  Such elements may
+   not be explicitly defined in the specification, but they may be
+   inferred or learned from the associated and perhaps separately
+   evolved ontologies.  This implies that the node that does the query
+   may not have the requisite pre-programmed (at design time)
+   interactions, but needs to have the capability to query the encodings
+   of knowledge and construct appropriate behaviors at runtime.
 
    Specifications that include these possibilities do not often explain
    their scope and assumed operation very well.  On the other hand, such
@@ -626,14 +703,14 @@ Table of Contents
    towards improving the chances of correct and interoperable
    implementations.
 
-4.4.4.  Tools, Reference Implementations
+4.5.4.  Tools, Reference Implementations
 
    Provide functional description of any additional tools or reference
    implementations that may be available to developers.  Describe
    language dependencies or preferences, if any, that may result from
    the specific bindings or reference implementations.
 
-4.4.5.  Licensing Terms
+4.5.5.  Licensing Terms
 
    Indicate the terms and conditions for implementing a particular
    specification.  These may include requirements for membership in the
@@ -642,60 +719,63 @@ Table of Contents
    any, for licensing research vs. commercial implementations should be
    pointed out.
 
-5.  Additional Stuff: Appendices
+5.  IANA Considerations
+
+   This memo includes no request to IANA.
+
+   All drafts are required to have an IANA considerations section (see
+   [RFC8126] for a guide).  If the draft does not require IANA to do
+   anything, the section contains an explicit statement that this is the
+   case (as above).  If there are no requirements for IANA, the section
+   will be removed during conversion into an RFC by the RFC Editor.
+
+6.  Security Considerations
+
+   All drafts are required to have a security considerations section.
+   See [RFC3552] for a guide.
+
+7.  Appendices
 
    When available, include descriptions of contributed appendices that
    describe objectives and scope of specifications contributed by SDOs
    or volunteers.
 
-6.  IANA Considerations
-
-   This memo includes no request to IANA.
-
-   All drafts are required to have an IANA considerations section (see
-   Guidelines for Writing an IANA Considerations Section in RFCs
-   [RFC5226] for a guide).  If the draft does not require IANA to do
-   anything, the section contains an explicit statement that this is the
-   case (as above).  If there are no requirements for IANA, the section
-   will be removed during conversion into an RFC by the RFC Editor.
-
-7.  Security Considerations
-
-   All drafts are required to have a security considerations section.
-   See RFC 3552 [RFC3552] for a guide.
-
 8.  Informative References
+
+   [IIC]      Industry IoT Consortium, "The Industrial Internet of
+              Things: Vol. G5: Connectivity Framework",
+              IIC IIC:PUB:G5:V1.01:PB:20180228, 2018.
+
+   [iotbook]  Milenkovic, M., "Internet of Things: Concepts and System
+              Design", Springer Nature Publishing, 2020.
 
    [ITU]      International Telecommunications Union, "Overview of the
               internet of things", ITU-T Y.4000/Y.2600, 2016.
 
-   [r-book]   Milenkovic, M., "Internet of Things: Concepts and System
-              Design", Springer Nature Publishing, 2020.
-
    [RFC3444]  Pras, A. and J. Schoenwaelder, "On the Difference between
               Information Models and Data Models", RFC 3444,
               DOI 10.17487/RFC3444, January 2003,
-              <https://datatracker.ietf.org/doc/html/rfc3444>.
+              <https://www.rfc-editor.org/rfc/rfc3444>.
 
    [RFC3552]  Rescorla, E. and B. Korver, "Guidelines for Writing RFC
               Text on Security Considerations", BCP 72, RFC 3552,
               DOI 10.17487/RFC3552, July 2003,
-              <https://datatracker.ietf.org/doc/html/rfc3552>.
-
-   [RFC5226]  Narten, T. and H. Alvestrand, "Guidelines for Writing an
-              IANA Considerations Section in RFCs", RFC 5226,
-              DOI 10.17487/RFC5226, May 2008,
-              <https://datatracker.ietf.org/doc/html/rfc5226>.
+              <https://www.rfc-editor.org/rfc/rfc3552>.
 
    [RFC7959]  Bormann, C. and Z. Shelby, Ed., "Block-Wise Transfers in
               the Constrained Application Protocol (CoAP)", RFC 7959,
               DOI 10.17487/RFC7959, August 2016,
-              <https://datatracker.ietf.org/doc/html/rfc7959>.
+              <https://www.rfc-editor.org/rfc/rfc7959>.
+
+   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
+              Writing an IANA Considerations Section in RFCs", BCP 26,
+              RFC 8126, DOI 10.17487/RFC8126, June 2017,
+              <https://www.rfc-editor.org/rfc/rfc8126>.
 
    [RFC8949]  Bormann, C. and P. Hoffman, "Concise Binary Object
               Representation (CBOR)", STD 94, RFC 8949,
               DOI 10.17487/RFC8949, December 2020,
-              <https://datatracker.ietf.org/doc/html/rfc8949>.
+              <https://www.rfc-editor.org/rfc/rfc8949>.
 
 Appendix A.  Additional Stuff
 
@@ -712,6 +792,5 @@ Author's Address
    IoTsense LLC
    Dublin, CA 94568
    United States of America
-
    Phone: +1 650 431 8280
    Email: milan@iotsense.com
