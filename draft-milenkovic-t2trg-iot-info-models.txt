@@ -4,8 +4,8 @@
 
 T2T Research Group                                    M. Milenkovic, Ed.
 Internet-Draft                                              IoTsense LLC
-Intended status: Informational                               3 June 2022
-Expires: 5 December 2022
+Intended status: Informational                              27 June 2022
+Expires: 29 December 2022
 
 
     IoT Information-Model Standards Description ("Nutrition Label")
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 December 2022.
+   This Internet-Draft will expire on 29 December 2022.
 
 Copyright Notice
 
