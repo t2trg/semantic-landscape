@@ -1,6 +1,6 @@
 ---
 v: 3
-docname: draft-milenkovic-t2trg-iot-standards-description-00
+docname: draft-milenkovic-t2trg-iot-standards-description-latest
 cat: info
 submissiontype: IRTF
 
@@ -52,7 +52,7 @@ informative:
     seriesinfo:
       IIC: IIC:PUB:G5:V1.01:PB:20180228
   RFC3552:
-  RFC8126:
+#  RFC8126:
 
 --- abstract
 
@@ -288,11 +288,12 @@ such as thing descriptions and smart objects. Table 1 illustrates general
 the form of object-oriented IoT
 information model representations.
 
-| Element | Description |
-| Object Type | Physical thing being modeled (device) |
-| Properties, Attributes | Object attributes, data, metadata |
-| Interactions | Ways to interact with object, actions, events |
-| Links | To other objects, compositions and collections |
+| Element                | Description                                    |
+| :-:                    | :-:                                            |
+| Object Type            | Physical thing being modeled (device)          |
+| Properties, Attributes | Object attributes, data, metadata              |
+| Interactions           | Ways to interact with object, actions, events  |
+| Links                  | To other objects, compositions and collections |
 {: #table1 title='Structure of IoT Information Model' align='center'}
 
 Some IoT data models specify only object types and properties of modeled
@@ -801,12 +802,6 @@ for licensing research vs. commercial implementations should be pointed out.
 # IANA Considerations {#IANA}
 
 This memo includes no request to IANA.
-
-All drafts are required to have an IANA considerations section (see {{RFC8126}} for a guide). If the draft
-does not require IANA to do anything, the section contains an explicit statement
-that this is the
-case (as above). If there are no requirements for IANA, the section will
-be removed during conversion into an RFC by the RFC Editor.
 
 
 # Security Considerations {#Security}
