@@ -1,7 +1,6 @@
 ---
 v: 3
-
-docname: draft-milenkovic-t2trg-iot-info-models-latest
+docname: draft-milenkovic-t2trg-iot-standards-description-00
 cat: info
 submissiontype: IRTF
 
@@ -43,7 +42,6 @@ informative:
     title: 'Internet of Things: Concepts and System Design'
     author:
     - ins: M. Milenkovic
-      org: ''
     date: 2020
     rc: Springer Nature Publishing
   IIC:
@@ -93,7 +91,7 @@ soliciting and incorporating feedback and suggestions of IoT community.
 
 # Whom is This Document For?
 
-This document is intended to encourage Standard Definition Organizations
+This document is intended to encourage Standard Development Organizations
 (SDOs) involved in definition
 of IoT data and information models to provide clarifications in their documents
 that would aid better
@@ -484,7 +482,7 @@ bridges and protocol converters to facilitate interoperability with the devices
 and things that are using
 conventions and legacy protocols that may not be Internet compatible. IoT
 frameworks generally operate above the
-transport layer, but below the application layer ({{ITU}}).
+transport layer, but below the application layer ({{IIC}}).
 
 Framework definition of data and information models typically include object
 type definitions, properties and interactions,
