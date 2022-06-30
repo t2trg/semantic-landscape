@@ -4,12 +4,12 @@
 
 T2T Research Group                                    M. Milenkovic, Ed.
 Internet-Draft                                              IoTsense LLC
-Intended status: Informational                              27 June 2022
-Expires: 29 December 2022
+Intended status: Informational                              30 June 2022
+Expires: 1 January 2023
 
 
     IoT Information-Model Standards Description ("Nutrition Label")
-             draft-milenkovic-t2trg-iot-info-models-latest
+        draft-milenkovic-t2trg-iot-standards-description-latest
 
 Abstract
 
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 December 2022.
+   This Internet-Draft will expire on 1 January 2023.
 
 Copyright Notice
 
@@ -111,7 +111,7 @@ Table of Contents
 
 1.  Whom is This Document For?
 
-   This document is intended to encourage Standard Definition
+   This document is intended to encourage Standard Development
    Organizations (SDOs) involved in definition of IoT data and
    information models to provide clarifications in their documents that
    would aid better understanding of their purpose, objectives, and
@@ -276,17 +276,17 @@ Table of Contents
    representations.
 
     +========================+=======================================+
-    | Element                | Description                           |
+    |        Element         |              Description              |
     +========================+=======================================+
-    | Object Type            | Physical thing being modeled (device) |
+    |      Object Type       | Physical thing being modeled (device) |
     +------------------------+---------------------------------------+
-    | Properties, Attributes | Object attributes, data, metadata     |
+    | Properties, Attributes |   Object attributes, data, metadata   |
     +------------------------+---------------------------------------+
-    | Interactions           | Ways to interact with object,         |
-    |                        | actions, events                       |
+    |      Interactions      |     Ways to interact with object,     |
+    |                        |            actions, events            |
     +------------------------+---------------------------------------+
-    | Links                  | To other objects, compositions and    |
-    |                        | collections                           |
+    |         Links          |   To other objects, compositions and  |
+    |                        |              collections              |
     +------------------------+---------------------------------------+
 
                Table 1: Structure of IoT Information Model
@@ -453,7 +453,7 @@ Table of Contents
    converters to facilitate interoperability with the devices and things
    that are using conventions and legacy protocols that may not be
    Internet compatible.  IoT frameworks generally operate above the
-   transport layer, but below the application layer ([ITU]).
+   transport layer, but below the application layer ([IIC]).
 
    Framework definition of data and information models typically include
    object type definitions, properties and interactions, with types of
@@ -723,12 +723,6 @@ Table of Contents
 
    This memo includes no request to IANA.
 
-   All drafts are required to have an IANA considerations section (see
-   [RFC8126] for a guide).  If the draft does not require IANA to do
-   anything, the section contains an explicit statement that this is the
-   case (as above).  If there are no requirements for IANA, the section
-   will be removed during conversion into an RFC by the RFC Editor.
-
 6.  Security Considerations
 
    All drafts are required to have a security considerations section.
@@ -766,11 +760,6 @@ Table of Contents
               the Constrained Application Protocol (CoAP)", RFC 7959,
               DOI 10.17487/RFC7959, August 2016,
               <https://www.rfc-editor.org/rfc/rfc7959>.
-
-   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
-              Writing an IANA Considerations Section in RFCs", BCP 26,
-              RFC 8126, DOI 10.17487/RFC8126, June 2017,
-              <https://www.rfc-editor.org/rfc/rfc8126>.
 
    [RFC8949]  Bormann, C. and P. Hoffman, "Concise Binary Object
               Representation (CBOR)", STD 94, RFC 8949,
