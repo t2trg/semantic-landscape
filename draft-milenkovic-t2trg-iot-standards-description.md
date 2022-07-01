@@ -45,12 +45,24 @@ informative:
     date: 2020
     rc: Springer Nature Publishing
   IIC:
-    title: 'The Industrial Internet of Things: Vol. G5: Connectivity Framework'
+    target: https://www.iiconsortium.org/wp-content/uploads/sites/2/2022/06/IIoT-Connectivity-Framework-2022-06-08.pdf
+    title: >
+      The Industrial Internet of Things:
+      Connectivity Framework
+    rc: An Industry IoT Consortium Foundational Document
+    date: 2022-06-08
     author:
-    - org: Industry IoT Consortium
-    date: 2018
-    seriesinfo:
-      IIC: IIC:PUB:G5:V1.01:PB:20180228
+    - name: Rajive Joshi
+      org: RTI
+    - name: Paul Didier
+      org: Cisco
+    - name: Christer Holmberg
+      org: Ericsson
+    - name: Jaime Jimenez
+      org: Ericsson
+    - name: Timothy Carey
+      org: Nokia
+#    - org: Industry IoT Consortium
   RFC3552:
 #  RFC8126:
 
