@@ -4,8 +4,8 @@
 
 T2T Research Group                                    M. Milenkovic, Ed.
 Internet-Draft                                              IoTsense LLC
-Intended status: Informational                              30 June 2022
-Expires: 1 January 2023
+Intended status: Informational                               1 July 2022
+Expires: 2 January 2023
 
 
     IoT Information-Model Standards Description ("Nutrition Label")
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 January 2023.
+   This Internet-Draft will expire on 2 January 2023.
 
 Copyright Notice
 
@@ -736,9 +736,12 @@ Table of Contents
 
 8.  Informative References
 
-   [IIC]      Industry IoT Consortium, "The Industrial Internet of
-              Things: Vol. G5: Connectivity Framework",
-              IIC IIC:PUB:G5:V1.01:PB:20180228, 2018.
+   [IIC]      Joshi, R., Didier, P., Holmberg, C., Jimenez, J., and T.
+              Carey, "The Industrial Internet of Things: Connectivity
+              Framework", An Industry IoT Consortium Foundational
+              Document, 8 June 2022, <https://www.iiconsortium.org/wp-
+              content/uploads/sites/2/2022/06/IIoT-Connectivity-
+              Framework-2022-06-08.pdf>.
 
    [iotbook]  Milenkovic, M., "Internet of Things: Concepts and System
               Design", Springer Nature Publishing, 2020.
